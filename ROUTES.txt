@@ -1,0 +1,63 @@
+GET 
+ThedonorZone/annonces/{id_utilisateur} -> affiche toutes les annonces de l'utilidsateur 
+ThedonorZone/annonces/{id_annonce} -> affiche une annonce en question
+ThedonorZone/recherches/{id_utilisateur} -> affiche toutes les recherches faire par l'utilisateur
+ThedonorZone/transactions/{id_utilisateur}?etat -> affiche toutes les transactions de l'utilisateur avec un certains etat 
+
+
+
+POST 
+TheDonorZone/annonces/ -> creer une annonce 
+ThedonorZone/transactions/ -> creer une transaction 
+ThedonorZone/favoris/ -> creer un favoris 
+ThedonorZone/utilisateurs/ -> creer un utilisateur 
+ThedonorZone/recherches/ -> creer une recherche 
+
+UPDATE 
+OPTIONEL ThedonorZone/znnonces/{id-annonce} -> Pour modifier une annonce  
+DELETE 
+TheDonorZone/annonces/{id_annonce}-> supprimer une annonce 
+TheDonorZone/annonces/{id_utilisateur} -> supprimer toutes les annonces d'un utilisateur 
+ThedonorZone/utilisateurs/{id-utilisateur}-> supp un utilisateur 
+ThedonorZone/recherches/{id_recherche} -> supp une recherche 
+ThedonorZone/recherches/{id-utilisateur}-> supp toutes les recherches d'un utlisateur
+ThedonorZone/favoris/{id_favori} -> supp un favoris
+ThedonorZone/favoris/{id_utilsateur} -> supp les favoris de l'utilisateur 
+ThedonorZone/transactions/{id_transaction} -> supp une transaction
+ThedonorZone/transactions/{id-utilisateur} -> supp toutes les transactions 
+
+
+BDD : 
+TABLE Annonce : 
+id annonce
+id de l'utilisateur qui l'a faite 
+titre 
+description 
+etat de l'objet 
+date de publication
+zone geographique 
+don 
+lite de mots clé 
+
+TABLE Utilisateur
+id utilisateur 
+nom 
+mp 
+
+TABLE recherche : 
+Id de recherche 
+id de l'utilsateur qu'il la faite
+liste de mot cle 
+
+TABLE Favoris : 
+id_favoris 
+id_de_l'utilisateur 
+id_de_l'annonce
+
+Table transaction 
+id de la transaction 
+id du client 
+id du vendeur 
+id de l'annonce
+etat de la transaction
+
