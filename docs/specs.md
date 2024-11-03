@@ -40,9 +40,8 @@
 - Gradle
 2. Base de données
   - H2
-3. Conteneurisation ?
-- Docker 
-- Docker compose
+3. Frontend
+   - Thymeleaf
 4. API
 - Spring Web
 5. Recherche et filtrage
