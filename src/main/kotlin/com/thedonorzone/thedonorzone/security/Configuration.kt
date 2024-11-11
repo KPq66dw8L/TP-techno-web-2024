@@ -26,11 +26,17 @@ class SecurityConfiguration {
     @Bean
     fun securityFilterChain(http: HttpSecurity): SecurityFilterChain {
         http
-            .csrf { it.disable() } // Disable CSRF for the API
+            .csrf { csrf ->
+                csrf.ignoringRequestMatchers("/h2-console/**", "/users/register", "/users/login") // Disable CSRF for H2 console and specific endpoints
+            }
+            .headers { headers ->
+                headers.frameOptions { it.disable() } // Disable frame options for H2 console access
+            }
             .sessionManagement { it.sessionCreationPolicy(SessionCreationPolicy.STATELESS) } // Stateless session
             .authorizeHttpRequests { requests ->
                 requests
-                    .requestMatchers(HttpMethod.POST, "/users/register", "/users/login", "/h2-console/").permitAll() // Allow public access for registration
+                    .requestMatchers("/h2-console/**").permitAll() // Allow public access to any path under /h2-console/
+                    .requestMatchers(HttpMethod.POST, "/users/register", "/users/login").permitAll() // Allow public access for registration and login
                     .anyRequest().authenticated() // Require authentication for all other endpoints
             }
             .oauth2ResourceServer { oauth2 ->
@@ -41,6 +47,8 @@ class SecurityConfiguration {
 
         return http.build()
     }
+
+
 
     @Bean
     fun forwardedHeaderFilter(): ForwardedHeaderFilter {
