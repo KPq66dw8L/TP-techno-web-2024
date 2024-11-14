@@ -29,7 +29,9 @@ class UserController(private val userService: UserService) {
 
         return try {
             // Generate and return JWT token
+            println("entered return")
             val token = userService.loginUser(email, password)
+            println("token generated")
             ResponseEntity.ok(mapOf("token" to token))
         } catch (e: RuntimeException) {
             // Respond with 401 Unauthorized if login fails

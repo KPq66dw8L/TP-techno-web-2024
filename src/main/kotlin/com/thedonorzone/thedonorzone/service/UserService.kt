@@ -39,15 +39,23 @@ class UserService(
     /**
      * Validate user credentials and return a JWT token.
      */
+    @Transactional
     fun loginUser(email: String, password: String): String {
         // Find the user by email
-        val user = userRepository.findByEmail(email)
-            ?: throw RuntimeException("Invalid email")
-
+        println("entered loginUser")
+        val user: User
+        try {
+            user = userRepository.findByEmail(email) ?: throw RuntimeException("Invalid email")
+        } catch (e: Exception) {
+            println("Exception caught: ${e.message}")
+            throw e
+        }
+        println("email check successful")
         // Check the password
         if (!passwordEncoder.matches(password, user.password)) {
             throw RuntimeException("Invalid password")
         }
+        println("password check successful")
 
         // Generate JWT token
         return JwtTokenUtil.generateToken(user.username)
@@ -56,7 +64,7 @@ class UserService(
     /**
      * Find a user by their ID.
      */
-    fun findById(userId: UUID): User? {
-        return userRepository.findById(userId)
-    }
+//    fun findById(userId: UUID): User? {
+//        return userRepository.findById(userId)
+//    }
 }

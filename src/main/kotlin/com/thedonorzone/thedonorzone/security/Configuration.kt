@@ -27,7 +27,10 @@ class SecurityConfiguration {
     fun securityFilterChain(http: HttpSecurity): SecurityFilterChain {
         http
             .csrf { csrf ->
-                csrf.ignoringRequestMatchers("/h2-console/**", "/users/register", "/users/login") // Disable CSRF for H2 console and specific endpoints
+                csrf.ignoringRequestMatchers("/h2-console/**",
+                    "/users/register",
+                    "/users/login",
+                    "/") // Disable CSRF for H2 console and specific endpoints
             }
             .headers { headers ->
                 headers.frameOptions { it.disable() } // Disable frame options for H2 console access
