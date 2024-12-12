@@ -61,3 +61,16 @@ id du vendeur
 id de l'annonce
 etat de la transaction
 
+
+DOC : 
+
+Creer une annonce : 
+POST /api/announcement
+{
+    "title": "anou3",
+    "description": "test3",
+    "state" : "NEW",
+    "donation" : "HAND",
+    "geographicalArea" : "test2",
+    "listOfkeyWords" : "listOfkeyWords"
+}
