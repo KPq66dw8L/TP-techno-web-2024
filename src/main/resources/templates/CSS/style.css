@@ -1,0 +1,225 @@
+@import url('https://fonts.googleapis.com/css2?family=Prompt:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+body {
+    font-family: "Prompt", sans-serif;
+    font-weight: 100;
+    font-style: normal;
+    overflow-x: hidden;
+}
+
+.titre {
+    overflow: hidden;
+    white-space: nowrap;
+    display: flex;
+    flex-direction: column;
+}
+
+.titre h1 {
+    font-weight: 800;
+    font-size: 1.5em;
+    display: inline-block;
+    position: relative;
+    white-space: nowrap;
+    line-height: 0em;
+
+}
+
+.slide-left-right {
+    animation: slideLeftRight 5s infinite ease-in-out;
+    margin-top: 10px;
+}
+
+.slide-right-left {
+    animation: slideRightLeft 5s infinite ease-in-out;
+    margin-top: 10px;
+    color: rgb(195, 149, 92);
+}
+
+@keyframes slideLeftRight {
+    0% {
+        transform: translateX(-150%);
+    }
+
+    50% {
+        transform: translateX(-125%);
+    }
+
+    100% {
+        transform: translateX(-150%);
+    }
+}
+
+@keyframes slideRightLeft {
+    0% {
+        transform: translateX(-100%);
+    }
+
+    50% {
+        transform: translateX(-125%);
+    }
+
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+.displayblock {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly;
+    width: 90%;
+    max-width: 650px;
+    margin: auto;
+}
+
+.displayblock img {
+    width: 35px;
+    margin-top: 10px;
+    filter: grayscale() brightness(0);
+    transition: 0.2s;
+}
+
+.displayblock img:hover {
+    margin-top: 5px;
+    transition: 0.2s;
+}
+
+.displayblock li {
+    list-style-type: none;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    line-height: 1em;
+    font-weight: 600;
+    font-size: smaller;
+    margin-left: -40px;
+}
+
+footer li a 
+{
+    text-transform: uppercase;
+    text-decoration: none;
+    color: rgb(0, 0, 0);
+    background-color: rgba(195, 149, 92, 0.486);
+    padding: 12px 17px;
+    border-radius: 10px;
+    transition: 0.15s;
+}
+
+footer li a:hover
+{
+    transition: 0.15s;
+    color: rgb(195, 149, 92);
+    background-color: rgb(255, 255, 255);
+}
+
+.titreAcceuil {
+    width: 90%;
+    text-align: center;
+    margin-left: 5%;
+    text-transform: uppercase;
+    font-size: 1.8em;
+    font-style: italic;
+    line-height: 1.2em;
+}
+
+.realistic-marker-highlight {
+    background-color: rgb(195, 149, 92);
+    z-index: -1;
+    filter: url(#marker-shape);
+}
+
+.paragraphe
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 90%;
+    max-width: 1000px;
+    text-align: justify;
+    margin: auto;
+    align-items:center;
+}
+
+.paragraphe p 
+{
+    width: 70%;
+    min-width: 300px;
+    
+}
+
+.paragraphe h1 
+{
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 1.8em;
+    font-style: italic;
+    line-height: 1.2em;
+}
+
+.paragraphe div
+{
+    
+    width : 50%;
+    font-weight: 500;
+    line-height: 1.3em;
+}
+
+.cycle
+{
+    width: 50%;
+    max-width: 400px;
+    animation: rotate 15s infinite linear;
+}
+
+@keyframes rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(-360deg);
+    }
+}
+
+form
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+
+input[type=text], select {
+    width: 80%;
+    max-width: 650px;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-weight: 700;
+  }
+  
+  input[type=submit] {
+    width: 80%;
+    max-width: 300px;
+    text-transform: uppercase;
+    text-decoration: none;
+    color: rgb(0, 0, 0);
+    background-color: rgba(195, 149, 92, 0.486);
+    padding: 10px 10px;
+    border-radius: 10px;
+    transition: 0.15s;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+  
+  input[type=submit]:hover {
+    color: rgb(195, 149, 92);
+    background-color: rgb(255, 255, 255);
+  }
+  
