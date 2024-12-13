@@ -25,6 +25,7 @@ dependencies {
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
 	implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
+	implementation("org.springframework.boot:spring-boot-starter-security")
 
 	implementation("org.springframework.security:spring-security-web:6.3.4")
 	implementation("org.springframework.boot:spring-boot-starter-oauth2-resource-server")

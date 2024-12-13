@@ -1,41 +1,28 @@
 package com.thedonorzone.thedonorzone.controller
 
-import UserDto
+import com.thedonorzone.thedonorzone.model.User
 import com.thedonorzone.thedonorzone.service.UserService
-import org.springframework.http.HttpStatus
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 
 @RestController
 @RequestMapping("/users")
-class UserController(private val userService: UserService) {
+class UserController @Autowired constructor(
+    private val userService: UserService
+) {
 
-    /**
-     * Endpoint for creating a new user.
-     */
+    // Endpoint to register a new user
     @PostMapping("/register")
-    fun registerUser(@RequestBody userDto: UserDto): ResponseEntity<String> {
-        userService.createUser(userDto)
-        return ResponseEntity.ok("User registered successfully")
+    fun registerUser(@RequestBody userRequest: User): ResponseEntity<User> {
+        val newUser = userService.registerUser(userRequest.username,userRequest.email, userRequest.password)
+        return ResponseEntity.ok(newUser)  // Return the newly created user (without token)
     }
 
-    /**
-     * Endpoint for user login. Returns JWT token if successful.
-     */
+    // Endpoint to authenticate a user and return a JWT token
     @PostMapping("/login")
-    fun loginUser(@RequestBody loginRequest: Map<String, String>): ResponseEntity<Any> {
-        val email = loginRequest["email"] ?: return ResponseEntity.badRequest().body(mapOf("error" to "Email is required"))
-        val password = loginRequest["password"] ?: return ResponseEntity.badRequest().body(mapOf("error" to "Password is required"))
-
-        return try {
-            // Generate and return JWT token
-            println("entered return")
-            val token = userService.loginUser(email, password)
-            println("token generated")
-            ResponseEntity.ok(mapOf("token" to token))
-        } catch (e: RuntimeException) {
-            // Respond with 401 Unauthorized if login fails
-            ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(mapOf("error" to "Invalid email or password"))
-        }
+    fun authenticateUser(@RequestBody userRequest: User): ResponseEntity<String> {
+        val token = userService.authenticateUser(userRequest.username, userRequest.password)
+        return ResponseEntity.ok(token)  // Return the JWT token on successful login
     }
 }

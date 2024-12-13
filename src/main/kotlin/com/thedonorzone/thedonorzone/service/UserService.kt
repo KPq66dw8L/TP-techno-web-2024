@@ -3,68 +3,51 @@ package com.thedonorzone.thedonorzone.service
 import UserDto
 import com.thedonorzone.thedonorzone.model.User
 import com.thedonorzone.thedonorzone.repository.UserRepository
-import com.thedonorzone.thedonorzone.security.JwtTokenUtil
+import com.thedonorzone.thedonorzone.security.JwtTokenProvider
+import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
+import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.stereotype.Service
 import org.springframework.transaction.annotation.Transactional
 import java.util.*
 
+
 @Service
-class UserService(
+class UserService @Autowired constructor(
     private val userRepository: UserRepository,
-    private val passwordEncoder: BCryptPasswordEncoder
+    private val passwordEncoder: PasswordEncoder,
+    private val jwtTokenProvider: JwtTokenProvider
 ) {
 
-    /**
-     * Create a new user with hashed password.
-     */
-    @Transactional
-    fun createUser(userDto: UserDto): User {
-        // Check if user already exists by email
-        userRepository.findByEmail(userDto.email)?.let {
-            throw RuntimeException("User with email ${userDto.email} already exists")
+    // Register a user
+    fun registerUser(username: String,email: String, password: String): User {
+        // Check if username already exists
+        if (userRepository.findByUsername(username) != null) {
+            throw RuntimeException("Username already exists!")
         }
 
-        // Create user object with hashed password
-        val user = User(
-            email = userDto.email,
-            username = userDto.username,
-            password = passwordEncoder.encode(userDto.password) // Hash the password
-        )
+        // Encode password
+        val encodedPassword = passwordEncoder.encode(password)
 
-        // Save and return the new user
-        return userRepository.save(user)
+        // Create and save the new user
+        val newUser = User(username=username, email=email, password=encodedPassword)
+        return userRepository.save(newUser)
     }
 
-    /**
-     * Validate user credentials and return a JWT token.
-     */
-    @Transactional
-    fun loginUser(email: String, password: String): String {
-        // Find the user by email
-        println("entered loginUser")
-        val user: User
-        try {
-            user = userRepository.findByEmail(email) ?: throw RuntimeException("Invalid email")
-        } catch (e: Exception) {
-            println("Exception caught: ${e.message}")
-            throw e
+    // Authenticate a user and generate JWT token
+    fun authenticateUser(username: String, password: String): String {
+        // Find the user by username
+        val optionalUser = userRepository.findByUsername(username)
+        if (optionalUser == null) {
+            throw RuntimeException("Invalid username or password!")
         }
-        println("email check successful")
-        // Check the password
-        if (!passwordEncoder.matches(password, user.password)) {
-            throw RuntimeException("Invalid password")
+
+        // Check if the password matches
+        if (!passwordEncoder.matches(password, optionalUser.password)) {
+            throw RuntimeException("Invalid username or password!")
         }
-        println("password check successful")
 
         // Generate JWT token
-        return JwtTokenUtil.generateToken(user.username)
+        return jwtTokenProvider.generateToken(username)
     }
-
-    /**
-     * Find a user by their ID.
-     */
-//    fun findById(userId: UUID): User? {
-//        return userRepository.findById(userId)
-//    }
 }

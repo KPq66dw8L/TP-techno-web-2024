@@ -1,6 +1,5 @@
 package com.thedonorzone.thedonorzone.controller
 
-import com.thedonorzone.thedonorzone.security.JwtTokenUtil
 import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Controller
 import org.springframework.ui.Model
