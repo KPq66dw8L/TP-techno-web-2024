@@ -139,7 +139,7 @@ footer li a:hover
 {
     transition: 0.15s;
     color: rgb(195, 149, 92);
-    background-color: rgb(255, 255, 255);
+    background-color: rgba(195, 149, 92, 0.221);
 }
 
 .titreAcceuil {
@@ -248,7 +248,7 @@ input[type=text], select {
   
   input[type=submit]:hover {
     color: rgb(195, 149, 92);
-    background-color: rgb(255, 255, 255);
+    background-color: rgba(195, 149, 92, 0.221);
   }
   
 
@@ -349,7 +349,7 @@ input[type=text], select {
 
 .pageanonce
 {
-    padding: 4%;
+    padding : 30px;
 }
 
 .pageanonce h1
@@ -451,7 +451,7 @@ text-align: right;
 
 .pageprofil
 {
-    padding: 4%;
+    padding : 30px;
 }
 
 .pageprofil h1
@@ -515,5 +515,41 @@ text-align: right;
   
 .pageprofil button:hover {
     color: rgb(195, 149, 92);
-    background-color: rgb(255, 255, 255);
+    background-color: rgba(195, 149, 92, 0.221);
   }
+
+.pagevendre 
+{
+    padding : 30px;
+}
+
+.pagevendre h1
+{
+    text-transform: uppercase;
+}
+
+.pagevendre h3
+{
+    text-transform: uppercase;
+    font-size: 1em;
+}
+
+.boutonAddSell
+{
+    width: 300px;
+    text-decoration: none;
+    color: rgb(255, 255, 255);
+    background-color: rgb(195, 149, 92);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 10px;
+    transition: 0.15s;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.boutonAddSell:hover
+{
+    color: rgb(195, 149, 92);
+    background-color: rgba(195, 149, 92, 0.221);
+}
