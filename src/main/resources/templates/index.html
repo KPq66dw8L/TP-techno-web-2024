@@ -31,22 +31,22 @@
       <nav>
         <ul class="displayblock">
           <li>
-            <a href="./index.html"
+            <a href="index.html"
               ><img src="/CSS/RESSOURCES/Menu/Search.svg" alt="" /></a
             >RECHERCHER
           </li>
           <li>
-            <a href="./Sell.html"
-              ><img src="/CSS/RESSOURCES/Menu/Ajout.svg" alt="" /></a
+            <a th:href="@{/announcements/sell}">
+              <img src="/CSS/RESSOURCES/Menu/Ajout.svg" alt="" /></a
             >VENDRE
           </li>
           <li>
-            <a href="./Message.html"
+            <a href="Message.html"
               ><img src="/CSS/RESSOURCES/Menu/Message.svg" alt="" /></a
             >MESSAGE
           </li>
           <li>
-            <a href="./Profile.html"
+            <a href="Profile.html"
               ><img src="/CSS/RESSOURCES/Menu/Profile.svg" alt="" /></a
             >PROFIL
           </li>
@@ -54,7 +54,6 @@
       </nav>
     </header>
     <br />
-
     <form action="/announcements/search" method="get">
       <ul class="barreDeRecherche">
         <li>

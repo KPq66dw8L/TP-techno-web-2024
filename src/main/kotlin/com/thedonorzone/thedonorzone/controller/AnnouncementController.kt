@@ -1,6 +1,6 @@
 package com.thedonorzone.thedonorzone.controller
 
-import com.thedonorzone.thedonorzone.dto.AnnoucementDto
+import com.thedonorzone.thedonorzone.dto.AnnouncementDto
 import com.thedonorzone.thedonorzone.model.User
 import org.springframework.ui.Model
 import com.thedonorzone.thedonorzone.service.AnnoucementService
@@ -15,35 +15,17 @@ import java.util.*
 @Controller
 @RequestMapping("/announcements")
 class AnnouncementController(private val annoucementService: AnnoucementService) {
-    @PostMapping("")
-    fun create (@RequestBody annoucementDto: AnnoucementDto): ResponseEntity<Annoucement> {
+    @PostMapping("/create")
+    fun create (@ModelAttribute announcementDto: AnnouncementDto, model: Model): String {
         return try {
-            val annoucement = annoucementService.createAnnoucement(annoucementDto)
-            ResponseEntity(annoucement, HttpStatus.CREATED)
+            val annoucement = annoucementService.createAnnoucement(announcementDto)
+            model.addAttribute("message", "Annonce créée avec succès !")
+            return "confirmation" // Retourne une page de confirmation
         } catch (e: RuntimeException) {
-            ResponseEntity(HttpStatus.CONFLICT)
+           "error"
         }
     }
 
-   /*  @GetMapping("/search") 
-    fun getAnnouncementsBySearch(@RequestParam(required = false)geographicalArea : String?, @RequestParam(required = false)state : String?, @RequestParam(required = false)keyWord : String? ): ResponseEntity<List<Annoucement>> {
-        return try {
-            val annoucements = annoucementService.getAnnouncementsBySearch(geographicalArea,state,keyWord)
-            ResponseEntity(annoucements, HttpStatus.OK)
-        } catch (e: RuntimeException) {
-            ResponseEntity(HttpStatus.CONFLICT)
-        }
-    }*/
-
-    @GetMapping("/search")
-    fun searchAnnouncements(@RequestParam keyword: String): ResponseEntity<List<Annoucement>> {
-        return try {
-            val annoucements = annoucementService.getAnnouncementsBySearch(keyword)
-            ResponseEntity(annoucements, HttpStatus.OK)
-        } catch (e: RuntimeException) {
-            ResponseEntity(HttpStatus.CONFLICT)
-        }
-    }
 
     @GetMapping("/user/{idUser}")
     fun getAnnouncementsByIdUser (@PathVariable idUser: Long): ResponseEntity<List<Annoucement>> {
@@ -55,7 +37,22 @@ class AnnouncementController(private val annoucementService: AnnoucementService)
         }
     }
 
-    @GetMapping("")
+    @GetMapping("") 
+    fun getAnnouncements(model: Model, @RequestParam(required = false)geographicalArea : String?, @RequestParam(required = false)state : String?, @RequestParam(required = false)donation : String?, @RequestParam keyWord: String? ): String {
+            return try {
+                val announcements = annoucementService.getAnnouncements(geographicalArea,state,donation,keyWord)
+                model.addAttribute("announcements", announcements)
+                "index" // Retourne le nom du fichier HTML sans extension
+            } catch (e: RuntimeException) {
+                "error" // Une vue HTML pour afficher les erreurs
+            }
+    }
+    @GetMapping("/sell")
+    fun sell(model: Model): String {
+        return "Sell" // Correspond à templates/sell.html
+    }
+    
+    /*@GetMapping("")
     fun getAllAnnoucement(model: Model): String {
             return try {
                 val announcements = annoucementService.getAllAnnoucement()
@@ -65,8 +62,27 @@ class AnnouncementController(private val annoucementService: AnnoucementService)
                 "error" // Une vue HTML pour afficher les erreurs
             }
         }
+    @GetMapping("/filter") 
+    fun getAnnouncementsByFilter(@RequestParam(required = false)geographicalArea : String?, @RequestParam(required = false)state : String?, @RequestParam(required = false)donation : String? ): ResponseEntity<List<Annoucement>> {
+            return try {
+                val annoucements = annoucementService.getAnnouncementsByFilter(geographicalArea,state,donation)
+                ResponseEntity(annoucements, HttpStatus.OK)
+            } catch (e: RuntimeException) {
+                ResponseEntity(HttpStatus.CONFLICT)
+            }
+        }
     
-    @PostMapping("/favorites")
+    @GetMapping("/search")
+    fun searchAnnouncements(@RequestParam keyword: String): ResponseEntity<List<Annoucement>> {
+            return try {
+                val annoucements = annoucementService.getAnnouncementsBySearch(keyword)
+                ResponseEntity(annoucements, HttpStatus.OK)
+            } catch (e: RuntimeException) {
+                ResponseEntity(HttpStatus.CONFLICT)
+            }
+        }
+    */
+   /*  @PostMapping("/favorites")
         fun create (@RequestBody favoritesDto: FavoritesDto): ResponseEntity<Favorites> {
             return try {
                 val favorites = annoucementService.createFavorites(FavoritesDto)
@@ -74,7 +90,7 @@ class AnnouncementController(private val annoucementService: AnnoucementService)
             } catch (e: RuntimeException) {
                 ResponseEntity(HttpStatus.CONFLICT)
             }
-     }
+     }*/
    /*  @GetMapping("/favorites")
     fun getAllFavorites(): ResponseEntity<List<Annoucement>> {
         return try {

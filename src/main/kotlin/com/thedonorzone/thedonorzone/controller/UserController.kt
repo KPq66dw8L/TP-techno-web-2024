@@ -19,17 +19,15 @@ class UserController @Autowired constructor(
 
     @PostMapping("/logout")
     fun logout(session: HttpSession): String {
-        // Invalidate the session and remove the JWT
         session.invalidate()
-        return "redirect:/login" // Redirect to login page after logout
+        return "redirect:/login"
     }
 
     @GetMapping("/register")
     fun showRegistrationForm(model: Model): String {
-        return "HTML/Register" // This corresponds to a Thymeleaf template named "Register.html"
+        return "Register"
     }
 
-    // Controller method adapted to work with the provided Thymeleaf HTML page
     @PostMapping("/register")
     fun registerUser(
         @RequestParam("email") email: String?,
@@ -39,14 +37,12 @@ class UserController @Autowired constructor(
     ): String {
         // Validate inputs
         if (email.isNullOrBlank() || username.isNullOrBlank() || password.isNullOrBlank()) {
-            return "redirect:/register?error=All fields are required" // Redirect back with error
+            return "redirect:/register?error=All fields are required"
         }
 
-        // Try to register the user
         return try {
             val user = userService.registerUser(username, email, password)
 
-            // Generate token after successful registration
             val token = userService.authenticateUser(
                 username = username,
                 email = email,
@@ -56,16 +52,15 @@ class UserController @Autowired constructor(
             // Store the JWT in the session
             session.setAttribute("jwtToken", token)
 
-            // Redirect to home page after successful registration
             "redirect:/"
         } catch (e: RuntimeException) {
-            "redirect:/register?error=${e.message}" // Redirect back with error message
+            "redirect:/register?error=${e.message}"
         }
     }
 
     @GetMapping("/login")
     fun showLoginForm(model: Model): String {
-        return "HTML/Login" // Returns the Thymeleaf template named "Login.html"
+        return "Login"
     }
 
     @PostMapping("/login")

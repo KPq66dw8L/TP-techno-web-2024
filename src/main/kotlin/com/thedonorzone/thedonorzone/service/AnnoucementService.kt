@@ -1,6 +1,6 @@
 package com.thedonorzone.thedonorzone.service
 
-import com.thedonorzone.thedonorzone.dto.AnnoucementDto
+import com.thedonorzone.thedonorzone.dto.AnnouncementDto
 import com.thedonorzone.thedonorzone.model.Annoucement
 import com.thedonorzone.thedonorzone.model.EnumDonation
 import com.thedonorzone.thedonorzone.model.EnumState
@@ -16,24 +16,28 @@ import java.util.*
 @Service
 class AnnoucementService(private val announcementRepository: AnnouncementRepository) {
 
-    fun createAnnoucement(annoucementDto: AnnoucementDto): Annoucement {
+    fun createAnnoucement(AnnouncementDto: AnnouncementDto): Annoucement {
         // TO DO : check if the user is connected
-        val publicationDate = annoucementDto.publicationDate ?: LocalDateTime.now()
-        val annoucement= Annoucement(title = annoucementDto.title, description = annoucementDto.description
-            ,state = annoucementDto.state,geographicalArea = annoucementDto.geographicalArea,
-            donation = annoucementDto.donation, listOfkeyWords = annoucementDto.listOfkeyWords, publicationDate = publicationDate)
+        val publicationDate = AnnouncementDto.publicationDate ?: LocalDateTime.now()
+        val annoucement= Annoucement(title = AnnouncementDto.title, description = AnnouncementDto.description
+            ,state = AnnouncementDto.state,geographicalArea = AnnouncementDto.geographicalArea,
+            donation = AnnouncementDto.donation, listOfkeyWords = AnnouncementDto.listOfkeyWords, publicationDate = publicationDate)
         return announcementRepository.save(annoucement)
     }
 
-    fun getAllAnnoucement(): List<Annoucement> {
+   /* fun getAllAnnoucement(): List<Annoucement> {
         return announcementRepository.findAll()
     }
-
-   /* fun getAnnouncementsBySearch(geographicalArea: String?, state: String?, keyWord: String?): List<Annoucement> {
+    */ 
+   /*fun getAnnouncementsBySearch(geographicalArea: String?, state: String?, keyWord: String?): List<Annoucement> {
         return announcementRepository.getAnnouncementsBySearch(geographicalArea, state, keyWord)
     }*/
-    fun getAnnouncementsBySearch(keyWord: String): List<Annoucement> {
+    /*fun getAnnouncementsBySearch(keyWord: String): List<Annoucement> {
         return announcementRepository.getAnnouncementsBySearch(keyWord)
+    }*/
+
+    fun getAnnouncements(geographicalArea: String?, state: String?, donation: String?, keyWord: String?): List<Annoucement> {
+        return announcementRepository.getAnnouncements(geographicalArea, state, donation, keyWord)
     }
     fun findById(idAnnoucement: Long): Annoucement? {
         // TO DO : check if the user is connected
