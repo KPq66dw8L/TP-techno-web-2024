@@ -12,6 +12,7 @@ data class User(
     val id: Long? = null,
 
     var username: String? = null,
+    @Column(name = "email", unique = true, nullable = false)
     val email: String? = null,
     var password: String,
 
@@ -20,4 +21,7 @@ data class User(
 ) {
     // No-argument constructor required by Hibernate
     constructor() : this(null, null, null, "")
+    fun updatePassword(newPassword: String) {
+        this.password = newPassword
+    }
 }
