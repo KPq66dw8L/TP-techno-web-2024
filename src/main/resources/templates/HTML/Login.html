@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<link rel="stylesheet" href="../../static/CSS/style.css">
+<link rel="stylesheet" href="/CSS/style.css">
 <head>
     <title>The Donor Zone</title>
 </head>
@@ -10,13 +10,13 @@
 
 <br>
 <div>
-  <form action="/action_page.php">
+  <form th:action="@{/login}" method="post">
 
     <label for="lname">Adresse mail</label>
-    <input type="text" id="lname" name="lastname" placeholder="Your last name..">
+    <input type="text" id="lname" name="email" placeholder="Email">
 
     <label for="lname">Mot de passe</label>
-    <input type="text" id="lname" name="lastname" placeholder="Your last name..">
+    <input type="text" id="lname" name="password" placeholder="Password">
 
   <br>
     <input type="submit" value="se connecter">
@@ -28,7 +28,7 @@
 <footer>
 <nav>
     <ul class="displayblock">
-        <li><a href="Register.html">Je n'ai pas de compte</a></li>
+        <li><a th:href="@{/register}">Je n'ai pas de compte</a></li>
     </ul>
 </nav>
 </footer>
