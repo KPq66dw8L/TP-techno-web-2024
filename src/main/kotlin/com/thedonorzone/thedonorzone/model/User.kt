@@ -9,10 +9,11 @@ data class User(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null,
-    var username: String,
-    val email: String,
-    var password: String
+
+    var username: String? = null,  // Allow username to be nullable
+    val email: String? = null,    // Allow email to be nullable
+    var password: String          // Keep password non-nullable as it's required
 ) {
     // No-argument constructor required by Hibernate
-    constructor() : this(null, "", "", "")
+    constructor() : this(null, null, null, "")
 }

@@ -15,14 +15,34 @@ class UserController @Autowired constructor(
     // Endpoint to register a new user
     @PostMapping("/register")
     fun registerUser(@RequestBody userRequest: User): ResponseEntity<User> {
-        val newUser = userService.registerUser(userRequest.username,userRequest.email, userRequest.password)
+        val newUser = userRequest.username?.let { userRequest.email?.let { it1 ->
+            userService.registerUser(it,
+                it1, userRequest.password)
+        } }
         return ResponseEntity.ok(newUser)  // Return the newly created user (without token)
     }
 
     // Endpoint to authenticate a user and return a JWT token
     @PostMapping("/login")
     fun authenticateUser(@RequestBody userRequest: User): ResponseEntity<String> {
-        val token = userService.authenticateUser(userRequest.username, userRequest.password)
-        return ResponseEntity.ok(token)  // Return the JWT token on successful login
+        // Ensure that either username or email is provided
+        if (userRequest.username.isNullOrBlank() && userRequest.email.isNullOrBlank()) {
+            throw RuntimeException("Username or email must be provided!")
+        }
+
+        // Authenticate using username or email and password
+        val token = userService.authenticateUser(
+            username = userRequest.username,
+            email = userRequest.email,
+            password = userRequest.password
+        )
+
+        // Check if the authentication returned a token
+        return if (token != null) {
+            ResponseEntity.ok(token) // Return the JWT token on successful login
+        } else {
+            ResponseEntity.status(401).body("Invalid credentials!") // Handle failed authentication
+        }
     }
+
 }
