@@ -1,7 +1,11 @@
 package com.thedonorzone.thedonorzone.security
 
+import jakarta.servlet.FilterChain
+import jakarta.servlet.http.HttpFilter
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
+import jakarta.servlet.http.HttpSession
+import org.springframework.boot.web.servlet.FilterRegistrationBean
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.http.HttpMethod
@@ -24,6 +28,27 @@ class WebConfig : WebMvcConfigurer {
         registry.addResourceHandler("/**")
             .addResourceLocations("classpath:/static/")
     }
+}
+
+class SessionFilter : HttpFilter() {
+
+    override fun doFilter(request: HttpServletRequest, response: HttpServletResponse, chain: FilterChain) {
+        val session: HttpSession? = request.session
+        val jwtToken = session?.getAttribute("jwtToken")
+
+        if (jwtToken == null && !request.requestURI.contains("/login")) {
+            response.sendRedirect("/login") // Redirige vers login si pas authentifié
+        } else {
+            chain.doFilter(request, response) // Continue normalement
+        }
+    }
+}
+
+@Bean
+fun sessionFilter(): FilterRegistrationBean<SessionFilter> {
+    val registrationBean = FilterRegistrationBean(SessionFilter())
+    registrationBean.addUrlPatterns("/*") // Applique le filtre sur toutes les URLs
+    return registrationBean
 }
 
 @Configuration
