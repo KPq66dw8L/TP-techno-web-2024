@@ -1,10 +1,68 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" href="./CSS/style.css">
 <head>
-    <title>My Web App</title>
+    <title>The Donor Zone</title>
 </head>
 <body>
-<h1 th:text="${message}">Hello, World!</h1>
-<p>hey</p>
+<div class="titre">
+    <h1 class="slide-left-right"><i> GIVE MORE - GIVE MORE - GIVE MORE - GIVE MORE - GIVE MORE - GIVE MORE - GIVE MORE - GIVE MORE - GIVE MORE - GIVE MORE - GIVE MORE - GIVE MORE - GIVE MORE - GIVE MORE - GIVE MORE - GIVE MORE - GIVE MORE - GIVE MORE - GIVE MORE - GIVE MORE - GIVE MORE - GIVE MORE - GIVE MORE - GIVE MORE - GIVE MORE - GIVE MORE - GIVE MORE - GIVE MORE - GIVE MORE - GIVE MORE - GIVE MORE - GIVE MORE - GIVE MORE - GIVE MORE - GIVE MORE - GIVE MORE - GIVE MORE - GIVE MORE</i></h1>
+    <h1 class="slide-right-left">WASTE LESS - WASTE LESS - WASTE LESS - WASTE LESS - WASTE LESS - WASTE LESS - WASTE LESS - WASTE LESS - WASTE LESS - WASTE LESS - WASTE LESS - WASTE LESS - WASTE LESS - WASTE LESS - WASTE LESS - WASTE LESS - WASTE LESS - WASTE LESS - WASTE LESS - WASTE LESS - WASTE LESS - WASTE LESS - WASTE LESS - WASTE LESS - WASTE LESS - WASTE LESS - WASTE LESS - WASTE LESS - WASTE LESS - WASTE LESS - WASTE LESS - WASTE LESS - WASTE LESS - WASTE LESS - WASTE LESS - WASTE LESS - WASTE LESS</h1>
+</div>
+<header>
+    <nav>
+        <ul class="displayblock">
+            <li><a href="./index.html"><img src="./RESSOURCES/Menu/Search.svg" alt=""></a>RECHERCHER</li>
+            <li><a href="./HTML/Sell.html"><img src="./RESSOURCES/Menu/Ajout.svg" alt=""></a>VENDRE</li>
+            <li><a href="./HTML/Message.html"><img src="./RESSOURCES/Menu/Message.svg" alt=""></a>MESSAGE</li>
+            <li><a href="./HTML/Profile.html"><img src="./RESSOURCES/Menu/Profile.svg" alt=""></a>PROFIL</li>
+        </ul>
+    </nav>
+</header>
+<br>
+
+
+<ul class="barreDeRecherche">
+  <li><input type="text" placeholder="Search.."></li>
+  <li><a href=""><img src="./RESSOURCES/Menu/Search.svg" alt=""></a></li>
+</ul>
+
+<div class="annonces-container">
+
+<div class="annonce">
+  <a href="./HTML/Annonce.html">
+  <div class="annonceimage-container">
+      <img src="https://via.placeholder.com/150" alt="Image de l'objet">
+      <div class="annoncefavori">
+        <img src="./RESSOURCES/SVG_Acceuil/HeartLikeOff.svg" alt="Favori">
+      </div>
+  </div>
+  <div class="annoncedetails">
+      <h2>Titre de l'objet</h2>
+      <p class="annoncedescription">Lorem ipsum dolor sit amet consectetur adipisicing elit. Veniam blanditiis necessitatibus incidunt labore minus doloremque provident molestiae quas maiores odit...</p>
+      <p class="annoncemeta">
+          Date : 12/12/2024 <br> 
+          État : Neuf <br> 
+          Lieu : Paris
+      </p>
+      <p class="annoncekeywords">
+          Mots-clés : <br>
+          <span>#don</span> <span>#meuble</span> <span>#gratuit</span>
+      </p>
+  </div>
+</a>
+</div>
+
+</div>
+
+
 </body>
+<svg xmlns="//www.w3.org/2000/svg" version="1.1" class="svg-filters" style="display:none;">
+    <defs>
+      <filter id="marker-shape">
+        <feTurbulence type="fractalNoise" baseFrequency="0 0.15" numOctaves="1" result="warp" />
+        <feDisplacementMap xChannelSelector="R" yChannelSelector="G" scale="7" in="SourceGraphic" in2="warp" />
+      </filter>
+    </defs>
+  </svg>
 </html>
