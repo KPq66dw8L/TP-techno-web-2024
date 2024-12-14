@@ -60,23 +60,14 @@ class SecurityConfig(
                     .requestMatchers("/h2-console/**").permitAll() // Allow H2 console access
                     .anyRequest().authenticated() // Require authentication for all other requests
             }
-//            .formLogin {
-//                it
-//                    .loginPage("/login")  // Specify the login page URL
-//                    .permitAll() // Allow anyone to access the login page
-//                    .defaultSuccessUrl("/", true)  // Redirect to home page after successful login
-//                    .failureUrl("/login?error=true") // Optional: Redirect to login page with an error on failure
-//            }
             .sessionManagement {
                 it.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED) // Allow creation of sessions if needed
             }
             .exceptionHandling {
                 it
-                    // Rediriger vers /auth/login si l'utilisateur n'est pas authentifié
                     .authenticationEntryPoint { _, response, _ ->
                         response.sendRedirect("/login?error=Unauthenticated")
                     }
-                    // Rediriger vers /auth/login si l'utilisateur authentifié n'a pas accès (403)
                     .accessDeniedHandler { _, response, _ ->
                         response.sendRedirect("/login?error=Access+Denied")
                     }

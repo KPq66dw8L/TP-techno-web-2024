@@ -17,40 +17,40 @@
   </nav>
 </header>
 <br>
-<h1 class="titreAcceuil"><span class="realistic-marker-highlight">Créer un compte</span><br></h1>
-<br>
-<div>
-  <form action="/action_page.php">
-    <label for="fname">Prénom</label>
-    <input type="text" id="fname" name="firstname" placeholder="Your name..">
 
-    <label for="lname">Nom</label>
-    <input type="text" id="lname" name="lastname" placeholder="Your last name..">
+<!-- Section Profil -->
+<section>
+    <div class="profile-container">
+        <h2>Informations du Profil</h2>
+        <ul>
+            <li><strong>Nom d'utilisateur :</strong> <span th:text="${user.username}">nom_utilisateur</span></li>
+            <li><strong>Email :</strong> <span th:text="${user.email}">email@exemple.com</span></li>
+            <li><strong>Date de création :</strong> <span th:text="${#dates.format(user.createdAt, 'dd-MM-yyyy')}">01-01-2024</span></li>
+        </ul>
+    </div>
+</section>
 
-    <label for="lname">Adresse mail</label>
-    <input type="text" id="lname" name="lastname" placeholder="Your last name..">
+<!-- Formulaire pour Mettre à Jour les Infos -->
+<section>
+    <h3>Mettre à jour les informations</h3>
+    <form th:action="@{/profile/update}" method="post">
+        <label for="email">Email :</label>
+        <input type="email" id="email" name="email" th:value="${user.email}" required />
 
-    <label for="lname">Nom d'utilisateur</label>
-    <input type="text" id="lname" name="lastname" placeholder="Your last name..">
+        <label for="password">Nouveau Mot de Passe :</label>
+        <input type="password" id="password" name="password" placeholder="Nouveau mot de passe" />
 
-    <label for="lname">Mot de passe</label>
-    <input type="text" id="lname" name="lastname" placeholder="Your last name..">
+        <button type="submit">Mettre à jour</button>
+    </form>
+</section>
 
-    
-  <br>
-    <input type="submit" value="créer mon compte">
-  </form>
-</div>
-
-<br>
-
-</body>
 <svg xmlns="//www.w3.org/2000/svg" version="1.1" class="svg-filters" style="display:none;">
     <defs>
-      <filter id="marker-shape">
-        <feTurbulence type="fractalNoise" baseFrequency="0 0.15" numOctaves="1" result="warp" />
-        <feDisplacementMap xChannelSelector="R" yChannelSelector="G" scale="7" in="SourceGraphic" in2="warp" />
-      </filter>
+        <filter id="marker-shape">
+            <feTurbulence type="fractalNoise" baseFrequency="0 0.15" numOctaves="1" result="warp" />
+            <feDisplacementMap xChannelSelector="R" yChannelSelector="G" scale="7" in="SourceGraphic" in2="warp" />
+        </filter>
     </defs>
-  </svg>
+</svg>
+</body>
 </html>
