@@ -33,21 +33,19 @@ class UserController @Autowired constructor(
     // Controller method adapted to work with the provided Thymeleaf HTML page
     @PostMapping("/register")
     fun registerUser(
-        @RequestParam("firstname") firstname: String?,
-        @RequestParam("lastname") lastname: String?,
         @RequestParam("email") email: String?,
         @RequestParam("username") username: String?,
         @RequestParam("password") password: String?
     ): String {
         // Validate inputs
-        if (firstname.isNullOrBlank() || lastname.isNullOrBlank() || email.isNullOrBlank() || username.isNullOrBlank() || password.isNullOrBlank()) {
+        if (email.isNullOrBlank() || username.isNullOrBlank() || password.isNullOrBlank()) {
             return "redirect:/register?error=All fields are required" // Redirect back with error
         }
 
         // Try to register the user
         return try {
             userService.registerUser(username, email, password)
-            "redirect:/login?success=Account created successfully" // Redirect to login page on success
+            "redirect:/" // Redirect to login page on success
         } catch (e: RuntimeException) {
             "redirect:/register?error=${e.message}" // Redirect back with error message
         }

@@ -9,15 +9,15 @@
 <h1 class="titreAcceuil"><span class="realistic-marker-highlight">Créer un compte</span><br></h1>
 <br>
 <div>
-  <form action="/action_page.php">
+  <form th:action="@{/users/register}" method="post">
     <label for="lname">Adresse mail</label>
-    <input type="text" id="lname" name="lastname" placeholder="Email">
+    <input type="text" id="lname" name="email" placeholder="Email">
 
     <label for="lname">Nom d'utilisateur</label>
-    <input type="text" id="lname" name="lastname" placeholder="Username">
+    <input type="text" id="lname" name="username" placeholder="Username">
 
     <label for="lname">Mot de passe</label>
-    <input type="text" id="lname" name="lastname" placeholder="Password">
+    <input type="text" id="lname" name="password" placeholder="Password">
 
     
   <br>

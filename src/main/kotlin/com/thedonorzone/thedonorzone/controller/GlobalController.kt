@@ -25,7 +25,7 @@ import org.springframework.web.bind.annotation.RestController
 class GlobalController {
     @RequestMapping("/")
     fun home(model: Model): String {
-        model.addAttribute("message", "Welcome to My Web App!")
+//        model.addAttribute("message", "Welcome to My Web App!")
         return "index"
     }
 }
