@@ -1,56 +1,66 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<link rel="stylesheet" href="../../static/CSS/style.css">
+<link rel="stylesheet" href="../static/CSS/style.css" />
+
 <head>
-    <title>The Donor Zone</title>
+  <title>The Donor Zone</title>
 </head>
+
 <body>
-
-<header>
-  <nav>
+  <header>
+    <nav>
       <ul class="displayblock">
-          <li><a href="../index.html"><img src="../RESSOURCES/Menu/Search.svg" alt=""></a>RECHERCHER</li>
-          <li><a href="../HTML/Sell.html"><img src="../RESSOURCES/Menu/Ajout.svg" alt=""></a>VENDRE</li>
-          <li><a href="../HTML/Message.html"><img src="../RESSOURCES/Menu/Message.svg" alt=""></a>MESSAGE</li>
-          <li><a href="../HTML/Profile.html"><img src="../RESSOURCES/Menu/Profile.svg" alt=""></a>PROFIL</li>
+        <li>
+          <a href="./index.html"><img src="../static/CSS/RESSOURCES/Menu/Search.svg" alt="" /></a>RECHERCHER
+        </li>
+        <li>
+          <a href="./Sell.html"><img src="../static/CSS/RESSOURCES/Menu/Ajout.svg" alt="" /></a>VENDRE
+        </li>
+        <li>
+          <a href="./Message.html"><img src="../static/CSS/RESSOURCES/Menu/Message.svg" alt="" /></a>MESSAGE
+        </li>
+        <li>
+          <a href="./Profile.html"><img src="../static/CSS/RESSOURCES/Menu/Profile.svg" alt="" /></a>PROFIL
+        </li>
       </ul>
-  </nav>
-</header>
+    </nav>
+  </header>
+  <br />
+
+<div class="pageprofil">
+<section>
+  <h1>Informations du Profil</h1>
+  <div>
+      <h4>  
+      Nom d'utilisateur : <span th:text="${user.username}">nom_utilisateur</span><br>
+          Email : <span th:text="${user.email}">email@exemple.com</span><br>
+          Date de création :<span th:text="${user.createdAt}">01-01-2024</span>
+        </h4> 
+  </div>
+</section>
+
+<section>
+  <h1>Mettre à jour les informations</h1>
+  <form th:action="@{/profile/update}" method="post">
+      <label for="email">Email :</label>
+      <input type="email" id="email" name="email" th:value="${user.email}" required placeholder="Votre adresse email"/>
+
+      <label for="password">Nouveau Mot de Passe :</label>
+      <input type="password" id="password" name="password" placeholder="Nouveau mot de passe" />
 <br>
-<h1 class="titreAcceuil"><span class="realistic-marker-highlight">Créer un compte</span><br></h1>
-<br>
-<div>
-  <form action="/action_page.php">
-    <label for="fname">Prénom</label>
-    <input type="text" id="fname" name="firstname" placeholder="Your name..">
-
-    <label for="lname">Nom</label>
-    <input type="text" id="lname" name="lastname" placeholder="Your last name..">
-
-    <label for="lname">Adresse mail</label>
-    <input type="text" id="lname" name="lastname" placeholder="Your last name..">
-
-    <label for="lname">Nom d'utilisateur</label>
-    <input type="text" id="lname" name="lastname" placeholder="Your last name..">
-
-    <label for="lname">Mot de passe</label>
-    <input type="text" id="lname" name="lastname" placeholder="Your last name..">
-
-    
-  <br>
-    <input type="submit" value="créer mon compte">
+      <button type="submit">Mettre à jour</button>
   </form>
+</section>
 </div>
 
-<br>
-
 </body>
-<svg xmlns="//www.w3.org/2000/svg" version="1.1" class="svg-filters" style="display:none;">
-    <defs>
-      <filter id="marker-shape">
-        <feTurbulence type="fractalNoise" baseFrequency="0 0.15" numOctaves="1" result="warp" />
-        <feDisplacementMap xChannelSelector="R" yChannelSelector="G" scale="7" in="SourceGraphic" in2="warp" />
-      </filter>
-    </defs>
-  </svg>
+<svg xmlns="//www.w3.org/2000/svg" version="1.1" class="svg-filters" style="display: none">
+  <defs>
+    <filter id="marker-shape">
+      <feTurbulence type="fractalNoise" baseFrequency="0 0.15" numOctaves="1" result="warp" />
+      <feDisplacementMap xChannelSelector="R" yChannelSelector="G" scale="7" in="SourceGraphic" in2="warp" />
+    </filter>
+  </defs>
+</svg>
+
 </html>
