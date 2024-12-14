@@ -29,10 +29,12 @@ class AnnoucementService(private val announcementRepository: AnnouncementReposit
         return announcementRepository.findAll()
     }
 
-    fun getAnnouncementsBySearch(geographicalArea: String?, state: String?, keyWord: String?): List<Annoucement> {
+   /* fun getAnnouncementsBySearch(geographicalArea: String?, state: String?, keyWord: String?): List<Annoucement> {
         return announcementRepository.getAnnouncementsBySearch(geographicalArea, state, keyWord)
+    }*/
+    fun getAnnouncementsBySearch(keyWord: String): List<Annoucement> {
+        return announcementRepository.getAnnouncementsBySearch(keyWord)
     }
-
     fun findById(idAnnoucement: Long): Annoucement? {
         // TO DO : check if the user is connected
         println("testici\n\n")

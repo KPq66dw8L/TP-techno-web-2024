@@ -28,7 +28,8 @@ class JwtAuthenticationFilter(
         val httpRequest = request as HttpServletRequest
         val httpResponse = response as HttpServletResponse
 
-        val token = extractToken(httpRequest)
+        val session = httpRequest.session // Get the current session
+        val token = session?.getAttribute("jwtToken") as? String // Retrieve JWT from session
 
         if (token != null && jwtTokenProvider.validateToken(token)) {
             val username = jwtTokenProvider.getUsernameFromToken(token)
@@ -44,13 +45,6 @@ class JwtAuthenticationFilter(
         }
 
         chain.doFilter(request, response) // Continue the filter chain
-    }
-
-    private fun extractToken(request: HttpServletRequest): String? {
-        val bearerToken = request.getHeader("Authorization")
-        return if (bearerToken != null && bearerToken.startsWith("Bearer ")) {
-            bearerToken.substring(7) // Remove "Bearer " prefix
-        } else null // Return null if no token is present
     }
 
     override fun init(filterConfig: FilterConfig?) {

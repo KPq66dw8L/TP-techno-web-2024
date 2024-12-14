@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.*
 import java.util.*
 
 @Controller
-@RequestMapping("/api/announcement")
+@RequestMapping("/announcements")
 class AnnouncementController(private val annoucementService: AnnoucementService) {
     @PostMapping("")
     fun create (@RequestBody annoucementDto: AnnoucementDto): ResponseEntity<Annoucement> {
@@ -25,10 +25,20 @@ class AnnouncementController(private val annoucementService: AnnoucementService)
         }
     }
 
-    @GetMapping("/search") 
+   /*  @GetMapping("/search") 
     fun getAnnouncementsBySearch(@RequestParam(required = false)geographicalArea : String?, @RequestParam(required = false)state : String?, @RequestParam(required = false)keyWord : String? ): ResponseEntity<List<Annoucement>> {
         return try {
             val annoucements = annoucementService.getAnnouncementsBySearch(geographicalArea,state,keyWord)
+            ResponseEntity(annoucements, HttpStatus.OK)
+        } catch (e: RuntimeException) {
+            ResponseEntity(HttpStatus.CONFLICT)
+        }
+    }*/
+
+    @GetMapping("/search")
+    fun searchAnnouncements(@RequestParam keyword: String): ResponseEntity<List<Annoucement>> {
+        return try {
+            val annoucements = annoucementService.getAnnouncementsBySearch(keyword)
             ResponseEntity(annoucements, HttpStatus.OK)
         } catch (e: RuntimeException) {
             ResponseEntity(HttpStatus.CONFLICT)
@@ -56,7 +66,15 @@ class AnnouncementController(private val annoucementService: AnnoucementService)
             }
         }
     
-
+    @PostMapping("/favorites")
+        fun create (@RequestBody favoritesDto: FavoritesDto): ResponseEntity<Favorites> {
+            return try {
+                val favorites = annoucementService.createFavorites(FavoritesDto)
+                ResponseEntity(favorites, HttpStatus.CREATED)
+            } catch (e: RuntimeException) {
+                ResponseEntity(HttpStatus.CONFLICT)
+            }
+     }
    /*  @GetMapping("/favorites")
     fun getAllFavorites(): ResponseEntity<List<Annoucement>> {
         return try {

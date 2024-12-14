@@ -55,13 +55,18 @@
     </header>
     <br />
 
-    <ul class="barreDeRecherche">
-      <li><input type="text" placeholder="Search.." /></li>
-      <li>
-        <a href=""><img src="/CSS/RESSOURCES/Menu/Search.svg" alt="" /></a>
-      </li>
-    </ul>
-
+    <form action="/announcements/search" method="get">
+      <ul class="barreDeRecherche">
+        <li>
+          <input type="text" name="keywords" placeholder="Search.." />
+        </li>
+        <li>
+          <button type="submit">
+            <img src="/CSS/RESSOURCES/Menu/Search.svg" alt="Search" />
+          </button>
+        </li>
+      </ul>
+    </form>
     <div class="annonces-container">
       <tr th:each="announcement : ${announcements}">
         <div class="annonce">

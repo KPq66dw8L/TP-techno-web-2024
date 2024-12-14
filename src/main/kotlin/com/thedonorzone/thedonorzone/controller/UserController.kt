@@ -2,28 +2,27 @@ package com.thedonorzone.thedonorzone.controller
 
 import com.thedonorzone.thedonorzone.model.User
 import com.thedonorzone.thedonorzone.service.UserService
+import jakarta.servlet.http.HttpSession
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.ResponseEntity
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken
+import org.springframework.security.core.context.SecurityContextHolder
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.*
 import org.springframework.ui.Model
 import org.springframework.web.bind.annotation.RequestMapping
 
 @Controller
-@RequestMapping("/users")
 class UserController @Autowired constructor(
     private val userService: UserService
 ) {
 
-    // Endpoint to register a new user
-//    @PostMapping("/register")
-//    fun registerUser(@RequestBody userRequest: User): ResponseEntity<User> {
-//        val newUser = userRequest.username?.let { userRequest.email?.let { it1 ->
-//            userService.registerUser(it,
-//                it1, userRequest.password)
-//        } }
-//        return ResponseEntity.ok(newUser)  // Return the newly created user (without token)
-//    }
+    @PostMapping("/logout")
+    fun logout(session: HttpSession): String {
+        // Invalidate the session and remove the JWT
+        session.invalidate()
+        return "redirect:/login" // Redirect to login page after logout
+    }
 
     @GetMapping("/register")
     fun showRegistrationForm(model: Model): String {
@@ -35,7 +34,8 @@ class UserController @Autowired constructor(
     fun registerUser(
         @RequestParam("email") email: String?,
         @RequestParam("username") username: String?,
-        @RequestParam("password") password: String?
+        @RequestParam("password") password: String?,
+        session: HttpSession
     ): String {
         // Validate inputs
         if (email.isNullOrBlank() || username.isNullOrBlank() || password.isNullOrBlank()) {
@@ -44,34 +44,56 @@ class UserController @Autowired constructor(
 
         // Try to register the user
         return try {
-            userService.registerUser(username, email, password)
-            "redirect:/" // Redirect to login page on success
+            val user = userService.registerUser(username, email, password)
+
+            // Generate token after successful registration
+            val token = userService.authenticateUser(
+                username = username,
+                email = email,
+                password = password
+            )
+
+            // Store the JWT in the session
+            session.setAttribute("jwtToken", token)
+
+            // Redirect to home page after successful registration
+            "redirect:/"
         } catch (e: RuntimeException) {
             "redirect:/register?error=${e.message}" // Redirect back with error message
         }
     }
 
-    // Endpoint to authenticate a user and return a JWT token
+    @GetMapping("/login")
+    fun showLoginForm(model: Model): String {
+        return "HTML/Login" // Returns the Thymeleaf template named "Login.html"
+    }
+
     @PostMapping("/login")
-    fun authenticateUser(@RequestBody userRequest: User): ResponseEntity<String> {
-        // Ensure that either username or email is provided
-        if (userRequest.username.isNullOrBlank() && userRequest.email.isNullOrBlank()) {
-            throw RuntimeException("Username or email must be provided!")
+    fun loginUser(
+        @RequestParam("email") email: String?,
+        @RequestParam("username") username: String?,
+        @RequestParam("password") password: String?,
+        session: HttpSession
+    ): String {
+        // Validate inputs
+        if ((email.isNullOrBlank() && username.isNullOrBlank()) || password.isNullOrBlank()) {
+            return "redirect:/login?error=Username/Email and password are required" // Redirect back with error
         }
 
-        // Authenticate using username or email and password
-        val token = userService.authenticateUser(
-            username = userRequest.username,
-            email = userRequest.email,
-            password = userRequest.password
-        )
+        // Try to authenticate the user
+        return try {
+            val token = userService.authenticateUser(username, email, password)
+            if (token != null) {
+                session.setAttribute("jwtToken", token)
 
-        // Check if the authentication returned a token
-        return if (token != null) {
-            ResponseEntity.ok(token) // Return the JWT token on successful login
-        } else {
-            ResponseEntity.status(401).body("Invalid credentials!") // Handle failed authentication
+                "redirect:/" // Redirect to the home page on success
+            } else {
+                "redirect:/login?error=Invalid credentials" // Redirect back with error
+            }
+        } catch (e: RuntimeException) {
+            "redirect:/login?error=${e.message}" // Redirect back with error message
         }
     }
+
 
 }

@@ -15,8 +15,7 @@ data class Annoucement(
     val state : String="",
     val geographicalArea : String="",
     val donation : String="",
-    val listOfkeyWords : String="",
-    val favorites : Long=0
+    val listOfkeyWords : String=""
 ){
     // Constructeur par défaut requis par JPA
     constructor() : this(
@@ -28,7 +27,6 @@ data class Annoucement(
         state = "",
         geographicalArea = "",
         donation = "",
-        listOfkeyWords = "",
-        favorites=0
+        listOfkeyWords = ""
     )
 }
