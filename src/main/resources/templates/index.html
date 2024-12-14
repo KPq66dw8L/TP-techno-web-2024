@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-  <link rel="stylesheet" href="/CSS/style.css" />
+  <link rel="stylesheet" href="../static/CSS/style.css" />
   <head>
     <title>The Donor Zone</title>
   </head>
@@ -32,22 +32,22 @@
         <ul class="displayblock">
           <li>
             <a href="./index.html"
-              ><img src="/CSS/RESSOURCES/Menu/Search.svg" alt="" /></a
+              ><img src="../static/CSS/RESSOURCES/Menu/Search.svg" alt="" /></a
             >RECHERCHER
           </li>
           <li>
             <a href="./Sell.html"
-              ><img src="/CSS/RESSOURCES/Menu/Ajout.svg" alt="" /></a
+              ><img src="../static/CSS/RESSOURCES/Menu/Ajout.svg" alt="" /></a
             >VENDRE
           </li>
           <li>
             <a href="./Message.html"
-              ><img src="/CSS/RESSOURCES/Menu/Message.svg" alt="" /></a
+              ><img src="../static/CSS/RESSOURCES/Menu/Message.svg" alt="" /></a
             >MESSAGE
           </li>
           <li>
             <a href="./Profile.html"
-              ><img src="/CSS/RESSOURCES/Menu/Profile.svg" alt="" /></a
+              ><img src="../static/CSS/RESSOURCES/Menu/Profile.svg" alt="" /></a
             >PROFIL
           </li>
         </ul>
@@ -58,12 +58,13 @@
     <ul class="barreDeRecherche">
       <li><input type="text" placeholder="Search.." /></li>
       <li>
-        <a href=""><img src="/CSS/RESSOURCES/Menu/Search.svg" alt="" /></a>
+        <a href=""><img src="../static/CSS/RESSOURCES/Menu/Search.svg" alt="" /></a>
       </li>
     </ul>
 
-    <tr th:each="announcement : ${announcements}">
+    
       <div class="annonces-container">
+        <tr th:each="announcement : ${announcements}">
         <div class="annonce">
           <a href="./Annonce.html">
             <div class="annonceimage-container">
@@ -73,7 +74,7 @@
               />
               <div class="annoncefavori">
                 <img
-                  src="/CSS/RESSOURCES/SVG_Acceuil/HeartLikeOff.svg"
+                  src="../static/CSS/RESSOURCES/SVG_Acceuil/HeartLikeOff.svg"
                   alt="Favori"
                 />
               </div>
@@ -84,6 +85,9 @@
                 <td th:text="${announcement.description}"></td>
               </p>
               <p class="annoncemeta">
+                Proposé par :
+                <td th:text="${announcement.publicationDate}"></td>
+                <br />
                 Date :
                 <td th:text="${announcement.publicationDate}"></td>
                 <br />
@@ -95,13 +99,14 @@
               </p>
               <p class="annoncekeywords">
                 Mots-clés : <br />
-                <span>#don</span> <span>#meuble</span> <span>#gratuit</span>
+                <span>#meuble</span> <span>#gratuit</span>
               </p>
             </div>
           </a>
         </div>
+      </tr>
       </div>
-    </tr>
+    
   </body>
   <svg
     xmlns="//www.w3.org/2000/svg"
