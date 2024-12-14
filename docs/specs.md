@@ -56,4 +56,70 @@
 9. API Documentation
 - Swagger/OpenAPI
 
-docker-compose up -build
+1. Table users
+
+   user_id (PK, INT, AUTO_INCREMENT)
+   username (VARCHAR)
+   email (VARCHAR)
+   password_hash (VARCHAR)
+   created_at (DATETIME)
+   updated_at (DATETIME)
+
+2. Table annonces
+
+   annonce_id (PK, INT, AUTO_INCREMENT)
+   user_id (FK, INT) — Lien vers l'utilisateur qui a créé l'annonce
+   titre (VARCHAR)
+   description (TEXT)
+   etat (VARCHAR) — Ex: "Neuf", "Bon état", "À réparer"
+   date_publication (DATETIME)
+   zone_geographique (VARCHAR)
+   don_type (ENUM) — Ex: "Main propre", "Envoyé"
+   created_at (DATETIME)
+   updated_at (DATETIME)
+
+3. Table mots_cles
+
+   mot_cle_id (PK, INT, AUTO_INCREMENT)
+   mot_cle (VARCHAR) — Ex: "livre", "jouet", etc.
+
+4. Table annonce_mots_cles
+
+   annonce_id (FK, INT) — Lien vers l'annonce
+   mot_cle_id (FK, INT) — Lien vers le mot-clé
+
+5. Table recherches_enregistrees
+
+   recherche_id (PK, INT, AUTO_INCREMENT)
+   user_id (FK, INT) — Lien vers l'utilisateur
+   titre (VARCHAR) — Critère de recherche
+   date_enregistrement (DATETIME)
+   filtres (JSON) — Critères de filtrage
+
+6. Table notifications
+
+   notification_id (PK, INT, AUTO_INCREMENT)
+   user_id (FK, INT) — Lien vers l'utilisateur
+   recherche_id (FK, INT) — Lien vers la recherche enregistrée
+   annonce_id (FK, INT) — Lien vers l'annonce correspondante
+   date_envoi (DATETIME)
+
+7. Table lots
+
+   lot_id (PK, INT, AUTO_INCREMENT)
+   user_id (FK, INT) — Lien vers l'utilisateur qui a créé le lot
+   date_creation (DATETIME)
+
+8. Table lot_annonces
+
+   lot_id (FK, INT) — Lien vers le lot
+   annonce_id (FK, INT) — Lien vers l'annonce
+
+9. Table messages
+
+   message_id (PK, INT, AUTO_INCREMENT)
+   sender_id (FK, INT) — Lien vers l'utilisateur qui envoie le message
+   receiver_id (FK, INT) — Lien vers l'utilisateur qui reçoit le message
+   content (TEXT)
+   date_envoi (DATETIME)
+   lu (BOOLEAN) — Statut de lecture
