@@ -1,23 +1,24 @@
 package com.thedonorzone.thedonorzone.security
 
-import jakarta.servlet.FilterChain
-import jakarta.servlet.http.HttpFilter
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
-import jakarta.servlet.http.HttpSession
-import org.springframework.boot.web.servlet.FilterRegistrationBean
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.http.HttpMethod
+import org.springframework.security.access.AccessDeniedException
+import org.springframework.security.config.Customizer
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
+import org.springframework.security.config.annotation.web.configurers.*
+import org.springframework.security.config.annotation.web.configurers.AuthorizeHttpRequestsConfigurer.AuthorizationManagerRequestMatcherRegistry
+import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer.FrameOptionsConfig
 import org.springframework.security.config.http.SessionCreationPolicy
+import org.springframework.security.core.AuthenticationException
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.crypto.password.PasswordEncoder
+import org.springframework.security.web.AuthenticationEntryPoint
 import org.springframework.security.web.SecurityFilterChain
-import org.springframework.security.web.access.AccessDeniedHandler
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
-import org.springframework.stereotype.Component
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
 
@@ -30,25 +31,12 @@ class WebConfig : WebMvcConfigurer {
     }
 }
 
-class SessionFilter : HttpFilter() {
-
-    override fun doFilter(request: HttpServletRequest, response: HttpServletResponse, chain: FilterChain) {
-        val session: HttpSession? = request.session
-        val jwtToken = session?.getAttribute("jwtToken")
-
-        if (jwtToken == null && !request.requestURI.contains("/login")) {
-            response.sendRedirect("/login") // Redirige vers login si pas authentifié
-        } else {
-            chain.doFilter(request, response) // Continue normalement
-        }
-    }
-}
-
 @Bean
-fun sessionFilter(): FilterRegistrationBean<SessionFilter> {
-    val registrationBean = FilterRegistrationBean(SessionFilter())
-    registrationBean.addUrlPatterns("/*") // Applique le filtre sur toutes les URLs
-    return registrationBean
+fun authenticationEntryPoint(): AuthenticationEntryPoint {
+    return AuthenticationEntryPoint { request: HttpServletRequest?, response: HttpServletResponse, authException: AuthenticationException? ->
+        // Redirect to login endpoint if user is unauthenticated
+        response.sendRedirect("/login")
+    }
 }
 
 @Configuration
@@ -83,12 +71,20 @@ class SecurityConfig(
                 it.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED) // Allow creation of sessions if needed
             }
             .exceptionHandling {
-                it.accessDeniedPage("/login?error=Access+Denied") // Redirect to login page on 403
+                it
+                    // Rediriger vers /auth/login si l'utilisateur n'est pas authentifié
+                    .authenticationEntryPoint { _, response, _ ->
+                        response.sendRedirect("/login?error=Unauthenticated")
+                    }
+                    // Rediriger vers /auth/login si l'utilisateur authentifié n'a pas accès (403)
+                    .accessDeniedHandler { _, response, _ ->
+                        response.sendRedirect("/login?error=Access+Denied")
+                    }
             }
 
         // Adding JwtAuthenticationFilter to the filter chain
         http.addFilterBefore(JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter::class.java)
-        http.headers().frameOptions().disable();
+        http.headers { it.frameOptions { frame -> frame.disable() } }
         return http.build() // Return the configured SecurityFilterChain
     }
 
@@ -97,4 +93,3 @@ class SecurityConfig(
         return BCryptPasswordEncoder() // Use BCrypt for password hashing
     }
 }
-
