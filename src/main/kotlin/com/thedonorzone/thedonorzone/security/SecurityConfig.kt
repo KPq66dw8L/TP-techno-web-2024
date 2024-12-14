@@ -10,6 +10,17 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.crypto.password.PasswordEncoder
 import org.springframework.security.web.SecurityFilterChain
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
+import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
+
+
+@Configuration
+class WebConfig : WebMvcConfigurer {
+    override fun addResourceHandlers(registry: ResourceHandlerRegistry) {
+        registry.addResourceHandler("/**")
+            .addResourceLocations("classpath:/static/")
+    }
+}
 
 @Configuration
 @EnableWebSecurity
@@ -23,6 +34,8 @@ class SecurityConfig(
             .csrf { it.disable() } // Disable CSRF for stateless requests like JWT
             .authorizeHttpRequests {
                 it
+                    .requestMatchers(HttpMethod.GET, "/CSS/**").permitAll() // Allow static CSS files
+                    .requestMatchers(HttpMethod.GET, "/**").permitAll() // Allow all GET requests for everyone
                     .requestMatchers(HttpMethod.POST, "/users/register").permitAll() // Allow registration without authentication
                     .requestMatchers(HttpMethod.POST, "/users/login").permitAll() // Allow login without authentication
                     .requestMatchers("/h2-console/**").permitAll() // Allow H2 console access
@@ -42,3 +55,4 @@ class SecurityConfig(
         return BCryptPasswordEncoder() // Use BCrypt for password hashing
     }
 }
+

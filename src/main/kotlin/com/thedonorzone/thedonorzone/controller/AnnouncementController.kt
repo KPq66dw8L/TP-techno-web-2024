@@ -2,6 +2,7 @@ package com.thedonorzone.thedonorzone.controller
 
 import com.thedonorzone.thedonorzone.dto.AnnoucementDto
 import com.thedonorzone.thedonorzone.model.User
+import org.springframework.ui.Model
 import com.thedonorzone.thedonorzone.service.AnnoucementService
 import org.springframework.http.ResponseEntity
 import com.thedonorzone.thedonorzone.model.Annoucement
@@ -45,14 +46,16 @@ class AnnouncementController(private val annoucementService: AnnoucementService)
     }
 
     @GetMapping("")
-    fun getAllAnnoucement(): ResponseEntity<List<Annoucement>> {
-        return try {
-            val annoucement = annoucementService.getAllAnnoucement()
-            ResponseEntity(annoucement, HttpStatus.OK)
-        } catch (e: RuntimeException) {
-            ResponseEntity(HttpStatus.OK)
+    fun getAllAnnoucement(model: Model): String {
+            return try {
+                val announcements = annoucementService.getAllAnnoucement()
+                model.addAttribute("announcements", announcements)
+                "index" // Retourne le nom du fichier HTML sans extension
+            } catch (e: RuntimeException) {
+                "error" // Une vue HTML pour afficher les erreurs
+            }
         }
-    }
+    
 
    /*  @GetMapping("/favorites")
     fun getAllFavorites(): ResponseEntity<List<Annoucement>> {
