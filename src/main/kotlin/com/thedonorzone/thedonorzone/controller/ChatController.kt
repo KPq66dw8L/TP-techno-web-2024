@@ -45,7 +45,7 @@ class ChatController(
         }
 
         val conversation = chatService.createOrGetConversation(currentUser, targetUser)
-        return "redirect:/conversation/${conversation.id}"
+        return "redirect:/chat/${conversation.id}"
     }
 
 
