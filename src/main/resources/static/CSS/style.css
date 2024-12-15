@@ -560,3 +560,77 @@ text-align: right;
     color: rgb(195, 149, 92);
     background-color: rgba(195, 149, 92, 0.221);
 }
+
+.pageAnnonceAjout
+{
+    padding : 30px;
+}
+
+.pageAnnonceAjout h1
+{
+    text-transform: uppercase;
+}
+
+.pageAnnonceAjout div
+{
+    width: 100%;
+    display: block;
+    margin: auto;
+}
+
+.pageAnnonceAjout form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; /* Centrage vertical */
+    margin: auto; /* Centrage horizontal */
+    max-width: 650px; /* Largeur maximale */
+    padding: 20px;
+    background-color:rgba(91, 68, 39, 0.114);
+    border-radius: 10px;
+}
+
+.pageAnnonceAjout textarea {
+    width: 93.1%;
+    max-width: 650px;
+    height: 150px;
+    padding: 12px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 4px; /* Coins arrondis */
+    font-family: "Prompt", sans-serif;
+    font-size: 14px; 
+    font-weight: 500;
+    resize: vertical;
+}
+
+.pageAnnonceAjout input {
+    width: 100%;
+    max-width: 650px;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: none;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-weight: 700;
+    text-transform: none;
+  }
+  
+.pageAnnonceAjout button {
+    width: 300px;
+    text-decoration: none;
+    color: rgb(255, 255, 255);
+    background-color: rgb(195, 149, 92);
+    border: none;
+    padding: 15px 10px;
+    border-radius: 10px;
+    transition: 0.15s;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  .pageAnnonceAjout button:hover {
+    color: rgb(195, 149, 92);
+    background-color: rgba(195, 149, 92, 0.221);
+  }

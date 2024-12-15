@@ -5,6 +5,22 @@
     <title>The Donor Zone</title>
   </head>
   <body>
+    <div class="titre">
+      <h1 class="slide-left-right">
+        <i>
+          THE DONOR ZONE - THE DONOR ZONE - THE DONOR ZONE - THE DONOR ZONE -
+          THE DONOR ZONE - THE DONOR ZONE - THE DONOR ZONE - THE DONOR ZONE -
+          THE DONOR ZONE - THE DONOR ZONE - THE DONOR ZONE - THE DONOR ZONE -
+          THE DONOR ZONE - THE DONOR ZONE - THE DONOR ZONE - THE DONOR ZONE</i
+        >
+      </h1>
+      <h1 class="slide-right-left">
+        GIVE MORE - WASTE LESS - GIVE MORE - WASTE LESS - GIVE MORE - WASTE LESS
+        - GIVE MORE - WASTE LESS - GIVE MORE - WASTE LESS - GIVE MORE - WASTE
+        LESS - GIVE MORE - WASTE LESS - GIVE MORE - WASTE LESS - GIVE MORE -
+        WASTE LESS - GIVE MORE - WASTE LESS - GIVE MORE - WASTE LESS
+      </h1>
+    </div>
     <header>
       <nav>
         <ul class="displayblock">
@@ -41,71 +57,85 @@
         </ul>
       </nav>
     </header>
-    <br />
-    <form th:action="@{/announcements/create}" th:method="post">
-      <div>
-        <label for="title">Titre :</label>
-        <input
-          type="text"
-          id="title"
-          name="title"
-          placeholder="Entrez le titre"
-          required
-        />
-      </div>
-      <div>
-        <label for="description">Description :</label>
-        <textarea
-          id="description"
-          name="description"
-          placeholder="Entrez une description"
-          required
-        ></textarea>
-      </div>
-      <div>
-        <label for="state">État :</label>
-        <input
-          type="text"
-          id="state"
-          name="state"
-          placeholder="Entrez l'état"
-          required
-        />
-      </div>
-      <div>
-        <label for="geographicalArea">Zone géographique :</label>
-        <input
-          type="text"
-          id="geographicalArea"
-          name="geographicalArea"
-          placeholder="Entrez la zone géographique"
-          required
-        />
-      </div>
-      <div>
-        <label for="donation">Donation :</label>
-        <input
-          type="text"
-          id="donation"
-          name="donation"
-          placeholder="Entrez la donation"
-          required
-        />
-      </div>
-      <div>
-        <label for="listOfkeyWords">Mots-clés :</label>
-        <input
-          type="text"
-          id="listOfkeyWords"
-          name="listOfkeyWords"
-          placeholder="Entrez les mots-clés"
-          required
-        />
-      </div>
-      <div>
-        <button type="submit">Créer l'annonce</button>
-      </div>
-    </form>
+
+    <div class="pageAnnonceAjout">
+        <h1>Créer une annonce</h1>
+        
+<div>
+      <section>
+        <form th:action="@{/announcements/create}" th:method="post">
+          <div>
+            <label for="title">Titre :</label><br>
+            <input
+              type="text"
+              id="title"
+              name="title"
+              placeholder="Entrez le titre"
+              required
+            />
+          </div>
+          <div>
+            <label for="description">Description :</label><br>
+            <textarea
+              id="description"
+              name="description"
+              placeholder="Entrez une description"
+              required
+            ></textarea>
+          </div>
+          <div>
+            <label for="state">État :</label><br>
+            <input
+              type="text"
+              id="state"
+              name="state"
+              placeholder="Entrez l'état"
+              required
+            />
+          </div>
+          <div>
+            <label for="geographicalArea">Zone géographique :</label><br>
+            <input
+              type="text"
+              id="geographicalArea"
+              name="geographicalArea"
+              placeholder="Entrez la zone géographique"
+              required
+            />
+          </div>
+          <div>
+            <label for="donation">Donation :</label><br>
+            <input
+              type="text"
+              id="donation"
+              name="donation"
+              placeholder="Entrez la donation"
+              required
+            />
+          </div>
+          <div>
+            <label for="listOfkeyWords">Mots-clés :</label><br>
+            <input
+              type="text"
+              id="listOfkeyWords"
+              name="listOfkeyWords"
+              placeholder="Entrez les mots-clés"
+              required
+            />
+          </div>
+          <br>
+          <div>
+            <button type="submit">Créer l'annonce</button>
+          </div>
+        </form>
+      </section>
+    </div>
+    </div>
+
+
+
+
+    
   </body>
   <svg
     xmlns="//www.w3.org/2000/svg"
