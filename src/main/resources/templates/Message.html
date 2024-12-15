@@ -1,138 +1,83 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-  <link rel="stylesheet" href="/CSS/style.css" />
-  <head>
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" href="../static/CSS/style.css" />
+<head>
     <title>The Donor Zone</title>
-  </head>
-  <body>
-    <div class="titre">
-      <h1 class="slide-left-right">
+</head>
+
+<body>
+<div class="titre">
+    <h1 class="slide-left-right">
         <i>
-          THE DONOR ZONE - THE DONOR ZONE - THE DONOR ZONE - THE DONOR ZONE -
-          THE DONOR ZONE - THE DONOR ZONE - THE DONOR ZONE - THE DONOR ZONE -
-          THE DONOR ZONE - THE DONOR ZONE - THE DONOR ZONE - THE DONOR ZONE -
-          THE DONOR ZONE - THE DONOR ZONE - THE DONOR ZONE - THE DONOR ZONE</i
+            THE DONOR ZONE - THE DONOR ZONE - THE DONOR ZONE - THE DONOR ZONE -
+            THE DONOR ZONE - THE DONOR ZONE - THE DONOR ZONE - THE DONOR ZONE -
+            THE DONOR ZONE - THE DONOR ZONE - THE DONOR ZONE - THE DONOR ZONE -
+            THE DONOR ZONE - THE DONOR ZONE - THE DONOR ZONE - THE DONOR ZONE</i
         >
-      </h1>
-      <h1 class="slide-right-left">
+    </h1>
+    <h1 class="slide-right-left">
         GIVE MORE - WASTE LESS - GIVE MORE - WASTE LESS - GIVE MORE - WASTE LESS
         - GIVE MORE - WASTE LESS - GIVE MORE - WASTE LESS - GIVE MORE - WASTE
         LESS - GIVE MORE - WASTE LESS - GIVE MORE - WASTE LESS - GIVE MORE -
         WASTE LESS - GIVE MORE - WASTE LESS - GIVE MORE - WASTE LESS
-      </h1>
-    </div>
-    <header>
-      <nav>
-        <ul class="displayblock">
-          <li>
-            <a href="./index.html">
-              <img src="/CSS/RESSOURCES/Menu/Home.svg" alt="" /></a
-            >HOME
-          </li>
-          <li>
-            <a href="./recherche.html"">
-              <img src="/CSS/RESSOURCES/Menu/Search.svg" alt="" /></a
-            >RECHERCHER
-          </li>
-          <li>
-            <a th:href="@{/announcements/sell}">
-              <img src="/CSS/RESSOURCES/Menu/Ajout.svg" alt="" /></a
-            >VENDRE
-          </li>
-          <li>
-            <a href="Message.html"
-              ><img src="/CSS/RESSOURCES/Menu/Message.svg" alt="" /></a
-            >MESSAGE
-          </li>
-          <li>
-            <a href="Profile.html"
-              ><img src="/CSS/RESSOURCES/Menu/Profile.svg" alt="" /></a
-            >PROFIL
-          </li>
-          <li>
-            <a href="./Profile.html"
-              ><img src="/CSS/RESSOURCES/Menu/logout.svg" alt="" /></a
-            >DECONNEXION
-          </li>
-        </ul>
-      </nav>
-    </header>
-
-    <h1 class="titreAcceuil">
-      <span class="realistic-marker-highlight">Créer un compte</span><br>
     </h1>
-    <br>
-    <div>
-      <form action="/action_page.php">
-        <label for="fname">Prénom</label>
-        <input
-          type="text"
-          id="fname"
-          name="firstname"
-          placeholder="Your name.."
-        />
+</div>
+<header>
+    <nav>
+        <ul class="displayblock">
+            <li>
+                <a th:href="@{/}">
+                    <img src="/CSS/RESSOURCES/Menu/home.svg" alt="" /></a
+                >HOME
+            </li>
+            <li>
+                <a href="./recherche.html">
+                    <img src="/CSS/RESSOURCES/Menu/Search.svg" alt="" /></a
+                >RECHERCHER
+            </li>
+            <li>
+                <a th:href="@{/announcements/sell}">
+                    <img src="/CSS/RESSOURCES/Menu/Ajout.svg" alt="" /></a
+                >VENDRE
+            </li>
+            <li>
+                <a th:href="@{/chat}"
+                ><img src="/CSS/RESSOURCES/Menu/Message.svg" alt="" /></a
+                >MESSAGE
+            </li>
+            <li>
+                <a th:href="@{/profile}"
+                ><img src="/CSS/RESSOURCES/Menu/Profile.svg" alt="" /></a
+                >PROFIL
+            </li>
+            <li>
+                <a th:href="@{/logout}"
+                ><img src="/CSS/RESSOURCES/Menu/logout.svg" alt="" /></a
+                >DECONNEXION
+            </li>
+        </ul>
+    </nav>
+</header>
+<div class="pageanonce">
+<h1>Your Conversations</h1>
 
-        <label for="lname">Nom</label>
-        <input
-          type="text"
-          id="lname"
-          name="lastname"
-          placeholder="Your last name.."
-        />
+<!-- List Existing Conversations -->
+<ul>
+    <li th:each="conversation : ${conversations}">
+        <a th:href="@{/chat/{id}(id=${conversation.id})}"
+           th:text="${conversation.user2.username}">dekdopekdpek</a>
+    </li>
+</ul>
 
-        <label for="lname">Adresse mail</label>
-        <input
-          type="text"
-          id="lname"
-          name="lastname"
-          placeholder="Your last name.."
-        />
-
-        <label for="lname">Nom d'utilisateur</label>
-        <input
-          type="text"
-          id="lname"
-          name="lastname"
-          placeholder="Your last name.."
-        />
-
-        <label for="lname">Mot de passe</label>
-        <input
-          type="text"
-          id="lname"
-          name="lastname"
-          placeholder="Your last name.."
-        />
-
-        <br>
-        <input type="submit" value="créer mon compte" />
-      </form>
-    </div>
-
-    <br>
-  </body>
-  <svg
-    xmlns="//www.w3.org/2000/svg"
-    version="1.1"
-    class="svg-filters"
-    style="display: none"
-  >
-    <defs>
-      <filter id="marker-shape">
-        <feTurbulence
-          type="fractalNoise"
-          baseFrequency="0 0.15"
-          numOctaves="1"
-          result="warp"
-        />
-        <feDisplacementMap
-          xChannelSelector="R"
-          yChannelSelector="G"
-          scale="7"
-          in="SourceGraphic"
-          in2="warp"
-        />
-      </filter>
-    </defs>
-  </svg>
+<!-- Create New Conversation -->
+<h2>Start a New Conversation</h2>
+<form action="/chat/new" method="post">
+    <label for="username">Enter Username:</label>
+    <input type="text" id="username" name="username" required>
+    <button type="submit">Start Chat</button>
+</form>
+</body>
+</div>
 </html>

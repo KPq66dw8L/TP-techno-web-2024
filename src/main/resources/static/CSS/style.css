@@ -439,7 +439,6 @@ text-align: right;
     text-decoration: none;
     color: rgb(255, 255, 255);
     background-color: rgb(195, 149, 92);
-    border : solid 1px rgb(195, 149, 92);
     font-size: small;
     padding: 5px 15px;
     margin-bottom: 10px;
@@ -452,8 +451,7 @@ text-align: right;
 .pageanonce a:hover
 {
     color: rgb(195, 149, 92);
-    background-color: white;
-    border : solid 1px rgb(195, 149, 92);
+    background-color: rgba(195, 149, 92, 0.221);
 }
 
 .pageprofil
@@ -674,6 +672,26 @@ text-align: right;
   }
 
   .filtres-container button:hover {
+    color: rgb(195, 149, 92);
+    background-color: rgba(195, 149, 92, 0.221);
+  }
+
+  .pageanonce button
+  {
+    width: 30%;
+    text-decoration: none;
+    color: rgb(255, 255, 255);
+    background-color: rgb(195, 149, 92);
+    border: none;
+    padding: 10px 10px;
+    border-radius: 10px;
+    transition: 0.15s;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  .pageanonce button:hover
+  {
     color: rgb(195, 149, 92);
     background-color: rgba(195, 149, 92, 0.221);
   }
