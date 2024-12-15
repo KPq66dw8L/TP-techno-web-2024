@@ -1,6 +1,7 @@
 package com.thedonorzone.thedonorzone.repository
 
 import com.thedonorzone.thedonorzone.model.Announcement
+import com.thedonorzone.thedonorzone.model.Favorites
 import org.springframework.data.jpa.repository.JpaRepository
 import org.springframework.stereotype.Repository
 import org.springframework.data.jpa.repository.Query
@@ -8,7 +9,7 @@ import org.springframework.data.repository.query.Param
 
 @Repository
 interface AnnouncementRepository : JpaRepository<Announcement, Long> {
-    fun getAnnouncementsByIdUser(idUser: Long): List<Announcement>
+    fun findByUsername(username: String): List<Announcement>
     @Query("""
     SELECT r FROM Announcement r 
     WHERE (:geographicalArea IS NULL OR r.geographicalArea = :geographicalArea) 
@@ -24,4 +25,8 @@ interface AnnouncementRepository : JpaRepository<Announcement, Long> {
 
     @Query("SELECT a FROM Announcement a WHERE a.listOfkeyWords LIKE %:keyword%")
     fun getAnnouncementsBySearch(keyword: String): List<Announcement>
+}
+
+interface FavoritesRepository : JpaRepository<Favorites, Long> {
+    fun findByUsername(username: String): List<Favorites>
 }

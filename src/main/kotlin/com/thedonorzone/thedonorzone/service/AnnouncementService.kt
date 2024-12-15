@@ -1,11 +1,14 @@
 package com.thedonorzone.thedonorzone.service
 
 import com.thedonorzone.thedonorzone.dto.AnnouncementDto
+import com.thedonorzone.thedonorzone.dto.FavoritesDto
 import com.thedonorzone.thedonorzone.model.Announcement
 import com.thedonorzone.thedonorzone.model.EnumDonation
 import com.thedonorzone.thedonorzone.model.EnumState
 import com.thedonorzone.thedonorzone.model.User
+import com.thedonorzone.thedonorzone.model.Favorites
 import com.thedonorzone.thedonorzone.repository.AnnouncementRepository
+import com.thedonorzone.thedonorzone.repository.FavoritesRepository
 import com.thedonorzone.thedonorzone.repository.UserRepository
 import org.springframework.stereotype.Service
 import com.thedonorzone.thedonorzone.model.AnnouncementUpdateRequest
@@ -14,27 +17,17 @@ import java.time.LocalDateTime
 import java.util.*
 
 @Service
-class AnnouncementService(private val announcementRepository: AnnouncementRepository) {
+class AnnouncementService(private val announcementRepository: AnnouncementRepository,
+private val favoritesRepository: FavoritesRepository) {
 
-    fun createAnnouncement(AnnouncementDto: AnnouncementDto, idUser : Long): Announcement {
+    fun createAnnouncement(AnnouncementDto: AnnouncementDto, username : String): Announcement {
         // TO DO : check if the user is connected
         val publicationDate = AnnouncementDto.publicationDate ?: LocalDateTime.now()
-        val announcement= Announcement(idUser= idUser, title = AnnouncementDto.title, description = AnnouncementDto.description
+        val announcement= Announcement(username= username, title = AnnouncementDto.title, description = AnnouncementDto.description
             ,state = AnnouncementDto.state,geographicalArea = AnnouncementDto.geographicalArea,
             donation = AnnouncementDto.donation, listOfkeyWords = AnnouncementDto.listOfkeyWords, publicationDate = publicationDate)
         return announcementRepository.save(announcement)
     }
-
-   /* fun getAllAnnoucement(): List<Annoucement> {
-        return announcementRepository.findAll()
-    }
-    */ 
-   /*fun getAnnouncementsBySearch(geographicalArea: String?, state: String?, keyWord: String?): List<Annoucement> {
-        return announcementRepository.getAnnouncementsBySearch(geographicalArea, state, keyWord)
-    }*/
-    /*fun getAnnouncementsBySearch(keyWord: String): List<Annoucement> {
-        return announcementRepository.getAnnouncementsBySearch(keyWord)
-    }*/
 
     fun getAnnouncements(geographicalArea: String?, state: String?, donation: String?, keywords: String?): List<Announcement> {
         return announcementRepository.getAnnouncements(geographicalArea, state, donation, keywords)
@@ -43,8 +36,8 @@ class AnnouncementService(private val announcementRepository: AnnouncementReposi
         return announcementRepository.findById(idAnnouncement).orElse(null) 
     }
     
-    fun getAnnouncementsByIdUser(idUser: Long): List<Announcement> {
-        return announcementRepository.getAnnouncementsByIdUser(idUser)
+    fun getAnnouncementsByusername(username: String): List<Announcement> {
+        return announcementRepository.findByUsername(username)
     }
 
     fun deleteAnnouncementById(idAnnouncement: Long) {
@@ -65,5 +58,15 @@ class AnnouncementService(private val announcementRepository: AnnouncementReposi
 
         // Sauvegarder et retourner l'entité mise à jour
         return announcementRepository.save(updatedAnnouncement)
+    }
+
+    fun getAllFavoritesByUsername(username: String) :List<Favorites>?
+    {
+        return favoritesRepository.findByUsername(username)
+    }
+    
+    fun createFavorites(favoritesDto: FavoritesDto) :Favorites {
+        val favorites = Favorites(idAnnoucement = favoritesDto.idAnnoucement, username = favoritesDto.username)
+        return favoritesRepository.save(favorites)
     }
 }

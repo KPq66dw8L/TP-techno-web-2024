@@ -27,13 +27,12 @@
       <nav>
         <ul class="displayblock">
           <li>
-            <a href="index.html">
+            <a  th:href="@{/}">
               <img src="/CSS/RESSOURCES/Menu/Home.svg" alt="" /></a
             >HOME
           </li>
           <li>
-            <a th:href="@{/announcements}">
-
+            <a th:href="@{/announcements}">   
               <img src="/CSS/RESSOURCES/Menu/Search.svg" alt="" /></a
             >RECHERCHER
           </li>
@@ -48,12 +47,17 @@
             >MESSAGE
           </li>
           <li>
-            <a href="Profile.html"
+            <a th:href="@{/profile}"
               ><img src="/CSS/RESSOURCES/Menu/Profile.svg" alt="" /></a
             >PROFIL
           </li>
           <li>
-            <a href="Profile.html"
+            <a th:href="@{/announcements/favorites}"
+              ><img src="/CSS/RESSOURCES/SVG_Acceuil/HeartLikeOff.svg" alt="" /></a
+            >FAVORIS
+          </li>
+          <li>
+            <a th:href="@{/logout}"
               ><img src="/CSS/RESSOURCES/Menu/logout.svg" alt="" /></a
             >DECONNEXION
           </li>
@@ -84,7 +88,7 @@
               </p>
               <p class="annoncemeta">
                 Proposé par :
-                <td th:text="${announcement.publicationDate}"></td>
+                <td th:text="${announcement.username}"></td>
                 <br />
                 Date :
                 <td th:text="${announcement.publicationDate}"></td>
@@ -99,6 +103,10 @@
                 Mots-clés : <br />
                 <span th:text="${announcement.listOfkeyWords}"></span>
               </p>
+              <form action="@{/announcements/{idAnnouncement}(idAnnouncement=${announcement.idAnnouncement})}" method="POST">
+                <input type="hidden" name="_method" value="DELETE" />
+                <button type="submit">Supprimer l'annonce</button>
+            </form>
             </div>
           </a>
         </div>

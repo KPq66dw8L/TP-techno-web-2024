@@ -11,6 +11,7 @@ data class User(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null,
 
+    @Column(name = "username", unique = true)
     var username: String? = null,
     @Column(name = "email", unique = true, nullable = false)
     val email: String? = null,
