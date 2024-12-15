@@ -139,7 +139,7 @@ footer li a:hover
 {
     transition: 0.15s;
     color: rgb(195, 149, 92);
-    background-color: rgb(255, 255, 255);
+    background-color: rgba(195, 149, 92, 0.221);
 }
 
 .titreAcceuil {
@@ -248,7 +248,7 @@ input[type=text], select {
   
   input[type=submit]:hover {
     color: rgb(195, 149, 92);
-    background-color: rgb(255, 255, 255);
+    background-color: rgba(195, 149, 92, 0.221);
   }
   
 
@@ -345,4 +345,211 @@ input[type=text], select {
     line-height: 32px;
     color: #ffffff;
     
+}
+
+.pageanonce
+{
+    padding : 30px;
+}
+
+.pageanonce h1
+{
+    font-weight: 700;
+    text-transform: uppercase;
+    line-height: 1em;
+}
+
+.pageanonce h3
+{
+    font-weight: 500;
+    line-height: 0em;
+    color : rgb(195, 149, 92);
+}
+
+.pageanonce h4
+{
+    font-weight: 500;
+    line-height: 1.6em;
+    text-transform: uppercase;
+    font-size: 0.9em;
+}
+
+.pageanonce img
+{
+    display: block;
+    margin: auto;
+    width: 80%;
+    max-width: 700px;
+    max-height: 500px;
+    object-fit: cover;
+}
+
+.pageanonce span
+{
+    background-color: rgb(195, 149, 92);
+    border-radius: 5px;
+    padding: 5px 5px;
+    font-size: 0.7em;
+    color: #ffffff;
+    font-weight: 500;
+    text-transform: uppercase;
+
+}
+
+.pageanonce p
+{
+    font-weight: 400;
+    font-size: 0.9em;
+    text-align: justify;
+
+}
+
+.DescriptionAnnonce
+{
+    width: 80%;
+    max-width: 800px;
+    display: block;
+    margin: auto;
+}
+
+.FooterAnonce
+{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items:center;
+}
+
+.BoutonAnnonce
+{
+    display: flex;
+    flex-direction: column;
+text-align: right;
+}
+
+.pageanonce a 
+{
+    text-decoration: none;
+    color: rgb(255, 255, 255);
+    background-color: rgb(195, 149, 92);
+    border : solid 1px rgb(195, 149, 92);
+    font-size: small;
+    padding: 5px 15px;
+    margin-bottom: 10px;
+    border-radius: 10px;
+    transition: 0.15s;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.pageanonce a:hover
+{
+    color: rgb(195, 149, 92);
+    background-color: white;
+    border : solid 1px rgb(195, 149, 92);
+}
+
+.pageprofil
+{
+    padding : 30px;
+}
+
+.pageprofil h1
+{
+    font-weight: 700;
+    text-transform: uppercase;
+    line-height: 1em;
+}
+
+.pageprofil h4
+{
+    font-weight: 500;
+    line-height: 1.6em;
+    text-transform: uppercase;
+    font-size: 0.9em;
+
+}
+
+.pageprofil div
+{
+    width: 80%;
+    display: block;
+    margin: auto;
+}
+
+.pageprofil form
+{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+
+.pageprofil input {
+    width: 70%;
+    max-width: 650px;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #eeeeee;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-weight: 700;
+    text-transform: none;
+  }
+  
+.pageprofil button {
+    width: 300px;
+    text-decoration: none;
+    color: rgb(255, 255, 255);
+    background-color: rgb(195, 149, 92);
+    border: none;
+    padding: 15px 10px;
+    border-radius: 10px;
+    transition: 0.15s;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+  
+.pageprofil button:hover {
+    color: rgb(195, 149, 92);
+    background-color: rgba(195, 149, 92, 0.221);
+  }
+
+.pagevendre 
+{
+    padding : 30px;
+}
+
+.pagevendre h1
+{
+    text-transform: uppercase;
+}
+
+.pagevendre h3
+{
+    text-transform: uppercase;
+    font-size: 1em;
+}
+
+.boutonAddSell
+{
+    width: 300px;
+    text-decoration: none;
+    color: rgb(255, 255, 255);
+    background-color: rgb(195, 149, 92);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 10px;
+    transition: 0.15s;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.boutonAddSell:hover
+{
+    color: rgb(195, 149, 92);
+    background-color: rgba(195, 149, 92, 0.221);
 }

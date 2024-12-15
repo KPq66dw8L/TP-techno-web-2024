@@ -26,7 +26,11 @@ class AnnouncementController(private val annoucementService: AnnoucementService)
         }
     }
 
-
+    @GetMapping("/Formulaire.html")
+    fun formulaire(): String {
+        return "Formulaire" // Spring recherche "Formulaire.html" dans src/main/resources/templates
+    }
+    
     @GetMapping("/user/{idUser}")
     fun getAnnouncementsByIdUser (@PathVariable idUser: Long): ResponseEntity<List<Annoucement>> {
         return try {
