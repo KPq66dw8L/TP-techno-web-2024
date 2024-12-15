@@ -634,3 +634,46 @@ text-align: right;
     color: rgb(195, 149, 92);
     background-color: rgba(195, 149, 92, 0.221);
   }
+
+  .labelcontainer
+  {
+    display: flex;
+    flex-direction: row;
+    margin: auto;
+    width: 100%;
+  }
+
+  .filtre
+  {
+    padding: 10px;
+  }
+
+  .filtre label
+  {
+    font-size: 0.8em;
+  }
+
+  .filtre option
+  {
+    font-family: "Prompt", sans-serif;
+    font-weight: 500;
+  }
+
+  .filtres-container button
+  {
+    width: 30%;
+    text-decoration: none;
+    color: rgb(255, 255, 255);
+    background-color: rgb(195, 149, 92);
+    border: none;
+    padding: 10px 10px;
+    border-radius: 10px;
+    transition: 0.15s;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  .filtres-container button:hover {
+    color: rgb(195, 149, 92);
+    background-color: rgba(195, 149, 92, 0.221);
+  }
