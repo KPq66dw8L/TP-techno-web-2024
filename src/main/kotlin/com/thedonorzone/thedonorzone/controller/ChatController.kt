@@ -69,7 +69,7 @@ class ChatController(
         return "conversation"
     }
 
-    @PostMapping("/chat/{id}/send")
+    @PostMapping("/{id}/send")
     fun sendMessage(
         @PathVariable("id") conversationId: Long,
         @RequestParam("content") content: String,

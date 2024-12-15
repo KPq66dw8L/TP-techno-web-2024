@@ -11,7 +11,7 @@
     <li th:each="message : ${messages}">
         <strong th:text="${message.sender.username}"></strong>:
         <span th:text="${message.content}"></span>
-        <span th:text="${#dates.format(message.timestamp, 'HH:mm')}"></span>
+        <span th:text="${message.timestamp}"></span>
     </li>
 </ul>
 

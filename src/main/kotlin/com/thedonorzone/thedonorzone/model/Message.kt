@@ -12,15 +12,18 @@ data class Message(
 
     @ManyToOne
     @JoinColumn(name = "conversation_id", nullable = false)
-    val conversation: Conversation,
+    val conversation: Conversation?,
 
     @ManyToOne
     @JoinColumn(name = "sender_id", nullable = false)
-    val sender: User,
+    val sender: User?,
 
     @Column(nullable = false)
     val content: String,
 
     @Column(nullable = false)
     val timestamp: LocalDateTime = LocalDateTime.now()
-)
+){
+    // No-argument constructor required by Hibernate
+    constructor() : this(null, null, null, null.toString(), LocalDateTime.now())
+}
