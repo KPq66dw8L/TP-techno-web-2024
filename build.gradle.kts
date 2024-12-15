@@ -36,6 +36,7 @@ dependencies {
 
 	implementation("io.swagger.core.v3:swagger-annotations:2.2.25")
 	implementation("javax.validation:validation-api:2.0.0.Final")
+	implementation("org.springframework.boot:spring-boot-starter-thymeleaf")
 
 	runtimeOnly("com.h2database:h2")
 	testImplementation("org.springframework.boot:spring-boot-starter-test")
