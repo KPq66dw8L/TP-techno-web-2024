@@ -65,6 +65,7 @@
     <div class="pageprofil">
         <h2>Informations du Profil</h2>
         <ul>
+            <li><strong>Id :</strong> <span th:text="${user.id}">id_utilisateur</span></li>
             <li><strong>Nom d'utilisateur :</strong> <span th:text="${user.username}">nom_utilisateur</span></li>
             <li><strong>Email :</strong> <span th:text="${user.email}">email@exemple.com</span></li>
             <li><strong>Date de création :</strong> <span th:text="${user.createdAt}">01-01-2024</span></li>
