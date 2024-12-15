@@ -58,7 +58,7 @@
         </ul>
     </nav>
 </header>
-<br>
+<div class="pageanonce">
 <h1>Chat with <span th:text="${conversation.user2.username}"></span></h1>
 
 <!-- Display Messages -->
@@ -66,16 +66,18 @@
     <li th:each="message : ${messages}">
         <strong th:text="${message.sender.username}"></strong>:
         <span th:text="${message.content}"></span>
-        <span th:text="${message.timestamp}"></span>
+        <span class="timemessage" th:text="${message.timestamp}"></span>
     </li>
 </ul>
 
 <!-- Send Message -->
 <form method="post" th:action="@{/chat/{id}/send(id=${conversation.id})}">
     <textarea name="content" rows="3" cols="50" required></textarea>
+    <br>
     <button type="submit">Send</button>
 </form>
-
+<br>
 <a href="/chat">Back to Conversations</a>
+</div>
 </body>
 </html>
