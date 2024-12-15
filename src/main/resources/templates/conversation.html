@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<link rel="stylesheet" href="/CSS/style.css" />
+<head>
+    <title>The Donor Zone</title>
+</head>
+
+<body>
+<header>
+    <nav>
+        <ul class="displayblock">
+            <li>
+                <a th:href="@{/}">
+                    <img src="/CSS/RESSOURCES/Menu/home.svg" alt="" /></a
+                >HOME
+            </li>
+            <li>
+                <a href="./recherche.html">
+                    <img src="/CSS/RESSOURCES/Menu/Search.svg" alt="" /></a
+                >RECHERCHER
+            </li>
+            <li>
+                <a th:href="@{/announcements/sell}">
+                    <img src="/CSS/RESSOURCES/Menu/Ajout.svg" alt="" /></a
+                >VENDRE
+            </li>
+            <li>
+                <a th:href="@{/chat}"
+                ><img src="/CSS/RESSOURCES/Menu/Message.svg" alt="" /></a
+                >MESSAGE
+            </li>
+            <li>
+                <a th:href="@{/profile}"
+                ><img src="/CSS/RESSOURCES/Menu/Profile.svg" alt="" /></a
+                >PROFIL
+            </li>
+            <li>
+                <a th:href="@{/logout}"
+                ><img src="/CSS/RESSOURCES/Menu/logout.svg" alt="" /></a
+                >DECONNEXION
+            </li>
+        </ul>
+    </nav>
+</header>
+<br>
+<h1>Chat with <span th:text="${conversation.user2.username}"></span></h1>
+
+<!-- Display Messages -->
+<ul>
+    <li th:each="message : ${messages}">
+        <strong th:text="${message.sender.username}"></strong>:
+        <span th:text="${message.content}"></span>
+        <span th:text="${message.timestamp}"></span>
+    </li>
+</ul>
+
+<!-- Send Message -->
+<form method="post" th:action="@{/chat/{id}/send(id=${conversation.id})}">
+    <textarea name="content" rows="3" cols="50" required></textarea>
+    <button type="submit">Send</button>
+</form>
+
+<a href="/chat">Back to Conversations</a>
+</body>
+</html>
