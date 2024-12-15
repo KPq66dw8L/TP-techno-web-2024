@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
   <link rel="stylesheet" href="/CSS/style.css" />
+
   <head>
     <title>The Donor Zone</title>
   </head>
+
   <body>
     <div class="titre">
       <h1 class="slide-left-right">
@@ -25,12 +27,12 @@
       <nav>
         <ul class="displayblock">
           <li>
-            <a th:href="@{/}">
-              <img src="/CSS/RESSOURCES/Menu/home.svg" alt="" /></a
+            <a href="./index.html">
+              <img src="/CSS/RESSOURCES/Menu/Home.svg" alt="" /></a
             >HOME
           </li>
           <li>
-            <a href="./recherche.html">
+            <a href="./recherche.html"">
               <img src="/CSS/RESSOURCES/Menu/Search.svg" alt="" /></a
             >RECHERCHER
           </li>
@@ -40,44 +42,63 @@
             >VENDRE
           </li>
           <li>
-            <a th:href="@{/chat}"
+            <a href="Message.html"
               ><img src="/CSS/RESSOURCES/Menu/Message.svg" alt="" /></a
             >MESSAGE
           </li>
           <li>
-            <a th:href="@{/profile}"
+            <a href="Profile.html"
               ><img src="/CSS/RESSOURCES/Menu/Profile.svg" alt="" /></a
             >PROFIL
           </li>
           <li>
-            <a th:href="@{/logout}"
+            <a href="./Profile.html"
               ><img src="/CSS/RESSOURCES/Menu/logout.svg" alt="" /></a
             >DECONNEXION
           </li>
         </ul>
       </nav>
     </header>
-    <br>
-    <h1 class="titreAcceuil">Chaque année en France, <br><span class="realistic-marker-highlight">plus de 40% des meubles jetés</span><br> peuvent encore servir</h1>
-    <div class="paragraphe">
-    <div>
-        <p><h1><span class="realistic-marker-highlight">Pourquoi nous existons ?</span></h3>
-            Chaque année, des tonnes de meubles encore utilisables finissent en décharge, contribuant au gaspillage des ressources et à l’augmentation des déchets. Notre plateforme permet à chacun de vendre ou d’acheter des meubles d'occasion facilement, prolongeant ainsi la durée de vie des objets et contribuant à une consommation plus durable.</P>
-    </div>
-    </div>
-    <div class="paragraphe">
 
-        <img class="cycle" src="./RESSOURCES/SVG_Acceuil/Recycle.svg" alt="">
-        <div>
-            <p><h1><span class="realistic-marker-highlight">Comment ça fonctionne ?</span></h3>
+    <div class="pageanonce">
+      <h1>titre annonce</h1>
+      <h3>Proposé par :</h3>
+      <br>
+      <img src="https://via.placeholder.com/500" alt="" />
 
-    Le fonctionnement est simple : <br>
-    <ul>
-    <li>Mettez en ligne une photo de votre meuble avec une description rapide. </li>
-    <li>Discutez directement avec les acheteurs intéressés. </li>
-    <li>Concluez la vente et organisez la récupération du meuble en fonction de vos disponibilités.</li>
-    </ul></P>
+      <br>
+      <div class="DescriptionAnnonce">
+        <h3>Description :</h3>
+        <p>
+          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Omnis
+          consequuntur ipsum est perferendis nostrum quasi minima laboriosam
+          quo, odio nihil ullam suscipit deleniti fuga odit praesentium ratione
+          commodi qui provident!
+        </p>
+        <h4 class="motclespageanonce">
+          <span>mot cles</span>
+          <span>mot cles</span>
+          <span>mot cles</span>
+          <span>mot cles</span>
+        </h4>
+
+        <div class="FooterAnonce">
+          <h4>
+            Date : <br>
+            état : <br>
+            Lieu : <br>
+          </h4>
+
+          <div class="BoutonAnnonce">
+            <a href="">Ajouter aux favoris 🧡</a>
+            <a href="">contacter le propriétaire</a>
+          </div>
         </div>
+
+        <br>
+
+        <a href="./index.html">retour au anonces</a>
+      </div>
     </div>
   </body>
   <svg

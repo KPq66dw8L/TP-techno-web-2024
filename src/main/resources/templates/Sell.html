@@ -1,0 +1,106 @@
+<link rel="stylesheet" href="/CSS/style.css">
+
+<head>
+  <title>The Donor Zone</title>
+</head>
+
+<body>
+
+  <div class="titre">
+    <h1 class="slide-left-right">
+      <i>
+        THE DONOR ZONE - THE DONOR ZONE - THE DONOR ZONE - THE DONOR ZONE - THE DONOR ZONE - THE DONOR ZONE - THE DONOR
+        ZONE - THE DONOR ZONE - THE DONOR ZONE - THE DONOR ZONE - THE DONOR ZONE - THE DONOR ZONE - THE DONOR ZONE - THE
+        DONOR ZONE - THE DONOR ZONE - THE DONOR ZONE</i>
+    </h1>
+    <h1 class="slide-right-left">
+      GIVE MORE - WASTE LESS - GIVE MORE - WASTE LESS - GIVE MORE - WASTE LESS - GIVE MORE - WASTE LESS - GIVE MORE -
+      WASTE LESS - GIVE MORE - WASTE LESS - GIVE MORE - WASTE LESS - GIVE MORE - WASTE LESS - GIVE MORE - WASTE LESS -
+      GIVE MORE - WASTE LESS - GIVE MORE - WASTE LESS
+    </h1>
+  </div>
+  <header>
+    <nav>
+      <ul class="displayblock">
+        <li>
+          <a href="./index.html">
+            <img src="/CSS/RESSOURCES/Menu/Home.svg" alt="" /></a
+          >HOME
+        </li>
+        <li>
+          <a href="./recherche.html"">
+            <img src="/CSS/RESSOURCES/Menu/Search.svg" alt="" /></a
+          >RECHERCHER
+        </li>
+        <li>
+          <a th:href="@{/announcements/sell}">
+            <img src="/CSS/RESSOURCES/Menu/Ajout.svg" alt="" /></a
+          >VENDRE
+        </li>
+        <li>
+          <a href="Message.html"
+            ><img src="/CSS/RESSOURCES/Menu/Message.svg" alt="" /></a
+          >MESSAGE
+        </li>
+        <li>
+          <a href="Profile.html"
+            ><img src="/CSS/RESSOURCES/Menu/Profile.svg" alt="" /></a
+          >PROFIL
+        </li>
+        <li>
+          <a href="./Profile.html"
+            ><img src="/CSS/RESSOURCES/Menu/logout.svg" alt="" /></a
+          >DECONNEXION
+        </li>
+      </ul>
+    </nav>
+  </header>
+
+  <div class="pagevendre">
+    <h1>Vos annonces</h1>
+    <h3><a class="boutonAddSell" href="Formulaire.html">creer une nouvelle annonce</a></h3>
+    <div class="annonces-container">
+      <tr th:each="announcement : ${announcements}">
+        <div class="annonce">
+          <a href="./Annonce.html">
+            <div class="annonceimage-container">
+              <img src="https://via.placeholder.com/150" alt="Image de l'objet" />
+            </div>
+            <div class="annoncedetails">
+              <h2>
+                <td th:text="${announcement.title}"></td>
+              </h2>
+              <p class="annoncedescription">
+                <td th:text="${announcement.description}"></td>
+              </p>
+              <p class="annoncemeta">
+                Date :
+                <td th:text="${announcement.publicationDate}"></td>
+                <br>
+                État :
+                <td th:text="${announcement.state}"></td>
+                <br>
+                Lieu :
+                <td th:text="${announcement.geographicalArea}"></td>
+              </p>
+              <p class="annoncekeywords">
+                Mots-clés : <br>
+                <span>meuble</span> <span>gratuit</span>
+              </p>
+            </div>
+          </a>
+        </div>
+      </tr>
+    </div>
+  </div>
+</body>
+<svg xmlns="//www.w3.org/2000/svg" version="1.1" class="svg-filters" style="display:none;">
+  <defs>
+    <filter id="marker-shape">
+      <feTurbulence type="fractalNoise" baseFrequency="0 0.15" numOctaves="1" result="warp" />
+      <feDisplacementMap xChannelSelector="R" yChannelSelector="G" scale="7" in="SourceGraphic" in2="warp" />
+    </filter>
+  </defs>
+</svg>
+
+</html>

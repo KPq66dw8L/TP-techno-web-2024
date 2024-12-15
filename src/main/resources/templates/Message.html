@@ -25,12 +25,12 @@
       <nav>
         <ul class="displayblock">
           <li>
-            <a th:href="@{/}">
-              <img src="/CSS/RESSOURCES/Menu/home.svg" alt="" /></a
+            <a href="./index.html">
+              <img src="/CSS/RESSOURCES/Menu/Home.svg" alt="" /></a
             >HOME
           </li>
           <li>
-            <a href="./recherche.html">
+            <a href="./recherche.html"">
               <img src="/CSS/RESSOURCES/Menu/Search.svg" alt="" /></a
             >RECHERCHER
           </li>
@@ -40,45 +40,76 @@
             >VENDRE
           </li>
           <li>
-            <a th:href="@{/chat}"
+            <a href="Message.html"
               ><img src="/CSS/RESSOURCES/Menu/Message.svg" alt="" /></a
             >MESSAGE
           </li>
           <li>
-            <a th:href="@{/profile}"
+            <a href="Profile.html"
               ><img src="/CSS/RESSOURCES/Menu/Profile.svg" alt="" /></a
             >PROFIL
           </li>
           <li>
-            <a th:href="@{/logout}"
+            <a href="./Profile.html"
               ><img src="/CSS/RESSOURCES/Menu/logout.svg" alt="" /></a
             >DECONNEXION
           </li>
         </ul>
       </nav>
     </header>
+
+    <h1 class="titreAcceuil">
+      <span class="realistic-marker-highlight">Créer un compte</span><br>
+    </h1>
     <br>
-    <h1 class="titreAcceuil">Chaque année en France, <br><span class="realistic-marker-highlight">plus de 40% des meubles jetés</span><br> peuvent encore servir</h1>
-    <div class="paragraphe">
     <div>
-        <p><h1><span class="realistic-marker-highlight">Pourquoi nous existons ?</span></h3>
-            Chaque année, des tonnes de meubles encore utilisables finissent en décharge, contribuant au gaspillage des ressources et à l’augmentation des déchets. Notre plateforme permet à chacun de vendre ou d’acheter des meubles d'occasion facilement, prolongeant ainsi la durée de vie des objets et contribuant à une consommation plus durable.</P>
-    </div>
-    </div>
-    <div class="paragraphe">
+      <form action="/action_page.php">
+        <label for="fname">Prénom</label>
+        <input
+          type="text"
+          id="fname"
+          name="firstname"
+          placeholder="Your name.."
+        />
 
-        <img class="cycle" src="./RESSOURCES/SVG_Acceuil/Recycle.svg" alt="">
-        <div>
-            <p><h1><span class="realistic-marker-highlight">Comment ça fonctionne ?</span></h3>
+        <label for="lname">Nom</label>
+        <input
+          type="text"
+          id="lname"
+          name="lastname"
+          placeholder="Your last name.."
+        />
 
-    Le fonctionnement est simple : <br>
-    <ul>
-    <li>Mettez en ligne une photo de votre meuble avec une description rapide. </li>
-    <li>Discutez directement avec les acheteurs intéressés. </li>
-    <li>Concluez la vente et organisez la récupération du meuble en fonction de vos disponibilités.</li>
-    </ul></P>
-        </div>
+        <label for="lname">Adresse mail</label>
+        <input
+          type="text"
+          id="lname"
+          name="lastname"
+          placeholder="Your last name.."
+        />
+
+        <label for="lname">Nom d'utilisateur</label>
+        <input
+          type="text"
+          id="lname"
+          name="lastname"
+          placeholder="Your last name.."
+        />
+
+        <label for="lname">Mot de passe</label>
+        <input
+          type="text"
+          id="lname"
+          name="lastname"
+          placeholder="Your last name.."
+        />
+
+        <br>
+        <input type="submit" value="créer mon compte" />
+      </form>
     </div>
+
+    <br>
   </body>
   <svg
     xmlns="//www.w3.org/2000/svg"
