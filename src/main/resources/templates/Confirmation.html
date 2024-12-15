@@ -5,8 +5,58 @@
     <title>The Donor Zone</title>
   </head>
   <body>
-    <h1>Confirmation</h1>
-    <p th:text="${message}"></p>
+    <div class="titre">
+      <h1 class="slide-left-right">
+        <i>
+          THE DONOR ZONE - THE DONOR ZONE - THE DONOR ZONE - THE DONOR ZONE -
+          THE DONOR ZONE - THE DONOR ZONE - THE DONOR ZONE - THE DONOR ZONE -
+          THE DONOR ZONE - THE DONOR ZONE - THE DONOR ZONE - THE DONOR ZONE -
+          THE DONOR ZONE - THE DONOR ZONE - THE DONOR ZONE - THE DONOR ZONE</i
+        >
+      </h1>
+      <h1 class="slide-right-left">
+        GIVE MORE - WASTE LESS - GIVE MORE - WASTE LESS - GIVE MORE - WASTE LESS
+        - GIVE MORE - WASTE LESS - GIVE MORE - WASTE LESS - GIVE MORE - WASTE
+        LESS - GIVE MORE - WASTE LESS - GIVE MORE - WASTE LESS - GIVE MORE -
+        WASTE LESS - GIVE MORE - WASTE LESS - GIVE MORE - WASTE LESS
+      </h1>
+    </div>
+    <div class="pageanonce">
+      <h1 class="titreAcceuil">Confirmation <br><span class="realistic-marker-highlight">vous êtes connecté</span></h1>
+<br>
+      <div class="DescriptionAnnonce">
+        <h3>Description :</h3>
+        <p th:text="${message}">
+          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Omnis
+          consequuntur ipsum est perferendis nostrum quasi minima laboriosam
+          quo, odio nihil ullam suscipit deleniti fuga odit praesentium ratione
+          commodi qui provident!
+        </p>
+<br>
     <a href="/">Retour à l'accueil</a>
+    <svg
+    xmlns="//www.w3.org/2000/svg"
+    version="1.1"
+    class="svg-filters"
+    style="display: none"
+  >
+    <defs>
+      <filter id="marker-shape">
+        <feTurbulence
+          type="fractalNoise"
+          baseFrequency="0 0.15"
+          numOctaves="1"
+          result="warp"
+        />
+        <feDisplacementMap
+          xChannelSelector="R"
+          yChannelSelector="G"
+          scale="7"
+          in="SourceGraphic"
+          in2="warp"
+        />
+      </filter>
+    </defs>
+  </svg>
   </body>
 </html>
