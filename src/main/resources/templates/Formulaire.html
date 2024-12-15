@@ -9,13 +9,18 @@
       <nav>
         <ul class="displayblock">
           <li>
-            <a href="index.html"
-              ><img src="/CSS/RESSOURCES/Menu/Search.svg" alt="" /></a
+            <a href="./index.html">
+              <img src="/CSS/RESSOURCES/Menu/Home.svg" alt="" /></a
+            >HOME
+          </li>
+          <li>
+            <a href="./recherche.html"">
+              <img src="/CSS/RESSOURCES/Menu/Search.svg" alt="" /></a
             >RECHERCHER
           </li>
           <li>
-            <a href="Sell.html"
-              ><img src="/CSS/RESSOURCES/Menu/Ajout.svg" alt="" /></a
+            <a th:href="@{/announcements/sell}">
+              <img src="/CSS/RESSOURCES/Menu/Ajout.svg" alt="" /></a
             >VENDRE
           </li>
           <li>
@@ -27,6 +32,11 @@
             <a href="Profile.html"
               ><img src="/CSS/RESSOURCES/Menu/Profile.svg" alt="" /></a
             >PROFIL
+          </li>
+          <li>
+            <a href="./Profile.html"
+              ><img src="/CSS/RESSOURCES/Menu/logout.svg" alt="" /></a
+            >DECONNEXION
           </li>
         </ul>
       </nav>
