@@ -1,55 +1,127 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<link rel="stylesheet" href="../static/CSS/style.css">
-<head>
+  <link rel="stylesheet" href="/CSS/style.css" />
+
+  <head>
     <title>The Donor Zone</title>
-</head>
-<body>
+  </head>
 
-<header>
-  <nav>
-      <ul class="displayblock">
-          <li><a href="index.html"><img src="../static/RESSOURCES/Menu/Search.svg" alt=""></a>RECHERCHER</li>
-          <li><a href="Sell.html"><img src="../static/RESSOURCES/Menu/Ajout.svg" alt=""></a>VENDRE</li>
-          <li><a href="Message.html"><img src="../static/RESSOURCES/Menu/Message.svg" alt=""></a>MESSAGE</li>
-          <li><a href="Profile.html"><img src="../static/RESSOURCES/Menu/Profile.svg" alt=""></a>PROFIL</li>
-      </ul>
-  </nav>
-</header>
-<br>
-<h1 class="titreAcceuil"><span class="realistic-marker-highlight">Créer un compte</span><br></h1>
-<br>
-<div>
-  <form action="/action_page.php">
-    <label for="fname">Prénom</label>
-    <input type="text" id="fname" name="firstname" placeholder="Your name..">
+  <body>
+    <div class="titre">
+      <h1 class="slide-left-right">
+        <i>
+          THE DONOR ZONE - THE DONOR ZONE - THE DONOR ZONE - THE DONOR ZONE -
+          THE DONOR ZONE - THE DONOR ZONE - THE DONOR ZONE - THE DONOR ZONE -
+          THE DONOR ZONE - THE DONOR ZONE - THE DONOR ZONE - THE DONOR ZONE -
+          THE DONOR ZONE - THE DONOR ZONE - THE DONOR ZONE - THE DONOR ZONE</i
+        >
+      </h1>
+      <h1 class="slide-right-left">
+        GIVE MORE - WASTE LESS - GIVE MORE - WASTE LESS - GIVE MORE - WASTE LESS
+        - GIVE MORE - WASTE LESS - GIVE MORE - WASTE LESS - GIVE MORE - WASTE
+        LESS - GIVE MORE - WASTE LESS - GIVE MORE - WASTE LESS - GIVE MORE -
+        WASTE LESS - GIVE MORE - WASTE LESS - GIVE MORE - WASTE LESS
+      </h1>
+    </div>
+    <header>
+      <nav>
+        <ul class="displayblock">
+          <li>
+            <a href="./index.html">
+              <img src="/CSS/RESSOURCES/Menu/Home.svg" alt="" /></a
+            >HOME
+          </li>
+          <li>
+            <a href="./recherche.html"">
+              <img src="/CSS/RESSOURCES/Menu/Search.svg" alt="" /></a
+            >RECHERCHER
+          </li>
+          <li>
+            <a th:href="@{/announcements/sell}">
+              <img src="/CSS/RESSOURCES/Menu/Ajout.svg" alt="" /></a
+            >VENDRE
+          </li>
+          <li>
+            <a href="Message.html"
+              ><img src="/CSS/RESSOURCES/Menu/Message.svg" alt="" /></a
+            >MESSAGE
+          </li>
+          <li>
+            <a href="Profile.html"
+              ><img src="/CSS/RESSOURCES/Menu/Profile.svg" alt="" /></a
+            >PROFIL
+          </li>
+          <li>
+            <a href="./Profile.html"
+              ><img src="/CSS/RESSOURCES/Menu/logout.svg" alt="" /></a
+            >DECONNEXION
+          </li>
+        </ul>
+      </nav>
+    </header>
 
-    <label for="lname">Nom</label>
-    <input type="text" id="lname" name="lastname" placeholder="Your last name..">
+    <div class="pageanonce">
+      <h1>titre annonce</h1>
+      <h3>Proposé par :</h3>
+      <br />
+      <img src="https://via.placeholder.com/500" alt="" />
 
-    <label for="lname">Adresse mail</label>
-    <input type="text" id="lname" name="lastname" placeholder="Your last name..">
+      <br />
+      <div class="DescriptionAnnonce">
+        <h3>Description :</h3>
+        <p>
+          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Omnis
+          consequuntur ipsum est perferendis nostrum quasi minima laboriosam
+          quo, odio nihil ullam suscipit deleniti fuga odit praesentium ratione
+          commodi qui provident!
+        </p>
+        <h4 class="motclespageanonce">
+          <span>mot cles</span>
+          <span>mot cles</span>
+          <span>mot cles</span>
+          <span>mot cles</span>
+        </h4>
 
-    <label for="lname">Nom d'utilisateur</label>
-    <input type="text" id="lname" name="lastname" placeholder="Your last name..">
+        <div class="FooterAnonce">
+          <h4>
+            Date : <br />
+            état : <br />
+            Lieu : <br />
+          </h4>
 
-    <label for="lname">Mot de passe</label>
-    <input type="text" id="lname" name="lastname" placeholder="Your last name..">
+          <div class="BoutonAnnonce">
+            <a href="">Ajouter aux favoris 🧡</a>
+            <a href="">contacter le propriétaire</a>
+          </div>
+        </div>
 
-    
-  <br>
-    <input type="submit" value="créer mon compte">
-  </form>
-</div>
+        <br />
 
-<br>
-
-</body>
-<svg xmlns="//www.w3.org/2000/svg" version="1.1" class="svg-filters" style="display:none;">
+        <a href="./index.html">retour au anonces</a>
+      </div>
+    </div>
+  </body>
+  <svg
+    xmlns="//www.w3.org/2000/svg"
+    version="1.1"
+    class="svg-filters"
+    style="display: none"
+  >
     <defs>
       <filter id="marker-shape">
-        <feTurbulence type="fractalNoise" baseFrequency="0 0.15" numOctaves="1" result="warp" />
-        <feDisplacementMap xChannelSelector="R" yChannelSelector="G" scale="7" in="SourceGraphic" in2="warp" />
+        <feTurbulence
+          type="fractalNoise"
+          baseFrequency="0 0.15"
+          numOctaves="1"
+          result="warp"
+        />
+        <feDisplacementMap
+          xChannelSelector="R"
+          yChannelSelector="G"
+          scale="7"
+          in="SourceGraphic"
+          in2="warp"
+        />
       </filter>
     </defs>
   </svg>
