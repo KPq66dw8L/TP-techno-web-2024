@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
   <link rel="stylesheet" href="/CSS/style.css" />
+
   <head>
     <title>The Donor Zone</title>
   </head>
+
   <body>
     <div class="titre">
       <h1 class="slide-left-right">
@@ -57,59 +59,32 @@
         </ul>
       </nav>
     </header>
+    <div class="pageprofil">
+      <section>
+        <h1>créer une anonce</h1>
+        <form th:action="@{/profile/update}" method="post">
+          <label for="email">Email :</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            th:value="${user.email}"
+            required
+            placeholder="Votre adresse email"
+          />
 
-    <h1 class="titreAcceuil">
-      <span class="realistic-marker-highlight">Créer un compte</span><br />
-    </h1>
-    <br />
-    <div>
-      <form action="/action_page.php">
-        <label for="fname">Prénom</label>
-        <input
-          type="text"
-          id="fname"
-          name="firstname"
-          placeholder="Your name.."
-        />
-
-        <label for="lname">Nom</label>
-        <input
-          type="text"
-          id="lname"
-          name="lastname"
-          placeholder="Your last name.."
-        />
-
-        <label for="lname">Adresse mail</label>
-        <input
-          type="text"
-          id="lname"
-          name="lastname"
-          placeholder="Your last name.."
-        />
-
-        <label for="lname">Nom d'utilisateur</label>
-        <input
-          type="text"
-          id="lname"
-          name="lastname"
-          placeholder="Your last name.."
-        />
-
-        <label for="lname">Mot de passe</label>
-        <input
-          type="text"
-          id="lname"
-          name="lastname"
-          placeholder="Your last name.."
-        />
-
-        <br />
-        <input type="submit" value="créer mon compte" />
-      </form>
+          <label for="password">Nouveau Mot de Passe :</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            placeholder="Nouveau mot de passe"
+          />
+          <br />
+          <button type="submit">Mettre à jour</button>
+        </form>
+      </section>
     </div>
-
-    <br />
   </body>
   <svg
     xmlns="//www.w3.org/2000/svg"

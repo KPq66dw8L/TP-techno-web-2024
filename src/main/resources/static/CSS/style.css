@@ -122,6 +122,13 @@ body {
     transition: 0.2s;
 }
 
+.barreDeRecherche button
+{
+    border: none;
+    background-color: white;
+
+}
+
 
 footer li a 
 {

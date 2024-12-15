@@ -37,7 +37,6 @@
           </li>
           <li>
             <a th:href="@{/announcements}">
-
               <img src="/CSS/RESSOURCES/Menu/Search.svg" alt="" /></a
             >RECHERCHER
           </li>
@@ -64,27 +63,66 @@
         </ul>
       </nav>
     </header>
-    <br>
-    <h1 class="titreAcceuil">Chaque année en France, <br><span class="realistic-marker-highlight">plus de 40% des meubles jetés</span><br> peuvent encore servir</h1>
-    <div class="paragraphe">
-    <div>
-        <p><h1><span class="realistic-marker-highlight">Pourquoi nous existons ?</span></h3>
-            Chaque année, des tonnes de meubles encore utilisables finissent en décharge, contribuant au gaspillage des ressources et à l’augmentation des déchets. Notre plateforme permet à chacun de vendre ou d’acheter des meubles d'occasion facilement, prolongeant ainsi la durée de vie des objets et contribuant à une consommation plus durable.</P>
-    </div>
-    </div>
-    <div class="paragraphe">
-
-        <img class="cycle" src="./RESSOURCES/SVG_Acceuil/Recycle.svg" alt="">
-        <div>
-            <p><h1><span class="realistic-marker-highlight">Comment ça fonctionne ?</span></h3>
-
-    Le fonctionnement est simple : <br>
-    <ul>
-    <li>Mettez en ligne une photo de votre meuble avec une description rapide. </li>
-    <li>Discutez directement avec les acheteurs intéressés. </li>
-    <li>Concluez la vente et organisez la récupération du meuble en fonction de vos disponibilités.</li>
-    </ul></P>
+    <br />
+    <form action="/announcements" method="get">
+      <ul class="barreDeRecherche">
+        <li>
+          <input type="text" name="keywords" placeholder="Search.." />
+        </li>
+        <li>
+          <button type="submit">
+            <img src="/CSS/RESSOURCES/Menu/Search.svg" alt="Search" />
+          </button>
+        </li>
+      </ul>
+    </form>
+    <div class="annonces-container">
+      <tr th:each="announcement : ${announcements}">
+        <div class="annonce">
+          <a
+            th:href="@{'/announcements/' + ${announcement.idAnnouncement}}"
+            target="_blank"
+          >
+            <div class="annonceimage-container">
+              <img
+                src="https://via.placeholder.com/150"
+                alt="Image de l'objet"
+              />
+              <div class="annoncefavori">
+                <img
+                  src="/CSS/RESSOURCES/SVG_Acceuil/HeartLikeOff.svg"
+                  alt="Favori"
+                />
+              </div>
+            </div>
+            <div class="annoncedetails">
+              <h2>
+                <td th:text="${announcement.title}"></td>
+              </h2>
+              <p class="annoncedescription">
+                <td th:text="${announcement.description}"></td>
+              </p>
+              <p class="annoncemeta">
+                Proposé par :
+                <td th:text="${announcement.publicationDate}"></td>
+                <br />
+                Date :
+                <td th:text="${announcement.publicationDate}"></td>
+                <br />
+                État :
+                <td th:text="${announcement.state}"></td>
+                <br />
+                Lieu :
+                <td th:text="${announcement.geographicalArea}"></td>
+              </p>
+              <p class="annoncekeywords">
+                Mots-clés : <br />
+                <span th:text="${announcement.listOfkeyWords}"></span>
+              </p>
+            </div>
+          </a>
         </div>
+      </tr>
     </div>
   </body>
   <svg

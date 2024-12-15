@@ -11,14 +11,23 @@ import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.*
 import java.util.*
+import javax.servlet.http.HttpSession
 
 @Controller
 @RequestMapping("/announcements")
 class AnnouncementController(private val announcementService: AnnouncementService) {
     @PostMapping("/create")
-    fun create (@ModelAttribute announcementDto: AnnouncementDto, model: Model): String {
+    fun create (@ModelAttribute announcementDto: AnnouncementDto, model: Model, session: HttpSession?): String {
         return try {
-            val announcement =  announcementService.createAnnouncement(announcementDto)
+            if (session == null) {
+                println("Session is null")
+                return "redirect:/login"
+            }
+            val user = session.getAttribute("currentUser")  as? User
+            if (user == null ||user.id == null) {
+                return "redirect:/login" // Rediriger si aucun utilisateur n'est connecté
+            }
+            val announcement =  announcementService.createAnnouncement(announcementDto, user.id)
             model.addAttribute("message", "Annonce créée avec succès !")
             return "confirmation" // Retourne une page de confirmation
         } catch (e: RuntimeException) {
@@ -31,6 +40,10 @@ class AnnouncementController(private val announcementService: AnnouncementServic
         return "Formulaire" // Spring recherche "Formulaire.html" dans src/main/resources/templates
     }
 
+    @GetMapping("/index.html")
+    fun index(): String {
+        return "index" // Spring recherche "Formulaire.html" dans src/main/resources/templates
+    }
     
     @GetMapping("/user/{idUser}")
     fun getAnnouncementsByIdUser (@PathVariable idUser: Long): ResponseEntity<List<Announcement>> {
@@ -48,7 +61,7 @@ class AnnouncementController(private val announcementService: AnnouncementServic
                 val announcements =  announcementService.getAnnouncements(geographicalArea,state,donation,keywords)
                 print(announcements)
                 model.addAttribute("announcements", announcements)
-                "index" // Retourne le nom du fichier HTML sans extension
+                "Research" // Retourne le nom du fichier HTML sans extension
             } catch (e: RuntimeException) {
                 "error" // Une vue HTML pour afficher les erreurs
             }
@@ -114,4 +127,3 @@ class AnnouncementController(private val announcementService: AnnouncementServic
         }
     }
 }
-

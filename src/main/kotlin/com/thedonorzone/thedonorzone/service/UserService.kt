@@ -4,6 +4,7 @@ import UserDto
 import com.thedonorzone.thedonorzone.model.User
 import com.thedonorzone.thedonorzone.repository.UserRepository
 import com.thedonorzone.thedonorzone.security.JwtTokenProvider
+import jakarta.servlet.http.HttpSession
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
 import org.springframework.security.crypto.password.PasswordEncoder
@@ -44,7 +45,7 @@ class UserService @Autowired constructor(
     }
 
     // Authenticate a user and generate JWT token
-    fun authenticateUser(username: String?, email: String?, password: String?): String? {
+    fun authenticateUser(username: String?, email: String?, password: String?, session: HttpSession): String? {
         // Validate inputs
         if (password.isNullOrBlank()) {
             throw IllegalArgumentException("Password must not be null or blank")
@@ -63,8 +64,24 @@ class UserService @Autowired constructor(
         if (user == null || !passwordEncoder.matches(password, user.password)) {
             throw RuntimeException("Invalid username, email, or password!")
         }
+        session.setAttribute("currentUser", user)
 
         // Generate JWT token
         return user.username?.let { jwtTokenProvider.generateToken(it) }
+    }
+
+    fun changePassword(email: String, oldPassword: String, newPassword: String): Boolean {
+        val user = userRepository.findByEmail(email)
+            ?: throw RuntimeException("Utilisateur non trouvé")
+
+        // Vérification de l'ancien mot de passe
+        if (!passwordEncoder.matches(oldPassword, user.password)) {
+            throw IllegalArgumentException("Ancien mot de passe incorrect")
+        }
+
+        // Mise à jour du mot de passe
+        user.updatePassword(passwordEncoder.encode(newPassword))
+        userRepository.save(user)
+        return true
     }
 }

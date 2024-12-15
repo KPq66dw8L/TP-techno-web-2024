@@ -16,10 +16,10 @@ import java.util.*
 @Service
 class AnnouncementService(private val announcementRepository: AnnouncementRepository) {
 
-    fun createAnnouncement(AnnouncementDto: AnnouncementDto): Announcement {
+    fun createAnnouncement(AnnouncementDto: AnnouncementDto, idUser : Long): Announcement {
         // TO DO : check if the user is connected
         val publicationDate = AnnouncementDto.publicationDate ?: LocalDateTime.now()
-        val announcement= Announcement(title = AnnouncementDto.title, description = AnnouncementDto.description
+        val announcement= Announcement(idUser= idUser, title = AnnouncementDto.title, description = AnnouncementDto.description
             ,state = AnnouncementDto.state,geographicalArea = AnnouncementDto.geographicalArea,
             donation = AnnouncementDto.donation, listOfkeyWords = AnnouncementDto.listOfkeyWords, publicationDate = publicationDate)
         return announcementRepository.save(announcement)
