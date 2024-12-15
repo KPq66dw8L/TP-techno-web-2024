@@ -3,7 +3,7 @@ package com.thedonorzone.thedonorzone.model
 import jakarta.persistence.*
 import java.time.LocalDateTime
 
-data class AnnoucementUpdateRequest(
+data class AnnouncementUpdateRequest(
     val title: String?,
     val description: String?,
     val state: String?,

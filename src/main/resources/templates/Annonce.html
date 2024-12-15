@@ -27,12 +27,12 @@
       <nav>
         <ul class="displayblock">
           <li>
-            <a href="./index.html">
-              <img src="/CSS/RESSOURCES/Menu/Home.svg" alt="" /></a
+            <a  th:href="@{/}">
+              <img src="/CSS/RESSOURCES/Menu/home.svg" alt="" /></a
             >HOME
           </li>
           <li>
-            <a href="./recherche.html"">
+            <a th:href="@{/announcements}">   
               <img src="/CSS/RESSOURCES/Menu/Search.svg" alt="" /></a
             >RECHERCHER
           </li>
@@ -42,17 +42,22 @@
             >VENDRE
           </li>
           <li>
-            <a href="Message.html"
+            <a th:href="@{/chat}"
               ><img src="/CSS/RESSOURCES/Menu/Message.svg" alt="" /></a
             >MESSAGE
           </li>
           <li>
-            <a href="Profile.html"
+            <a th:href="@{/profile}"
               ><img src="/CSS/RESSOURCES/Menu/Profile.svg" alt="" /></a
             >PROFIL
           </li>
           <li>
-            <a href="./Profile.html"
+            <a th:href="@{/announcements/favorites}"
+              ><img src="/CSS/RESSOURCES/SVG_Acceuil/HeartLikeOff.svg" alt="" /></a
+            >FAVORIS
+          </li>
+          <li>
+            <a th:href="@{/logout}"
               ><img src="/CSS/RESSOURCES/Menu/logout.svg" alt="" /></a
             >DECONNEXION
           </li>
@@ -60,45 +65,52 @@
       </nav>
     </header>
 
-    <div class="pageanonce">
-      <h1>titre annonce</h1>
-      <h3>Proposé par :</h3>
-      <br>
-      <img src="https://via.placeholder.com/500" alt="" />
-
-      <br>
-      <div class="DescriptionAnnonce">
-        <h3>Description :</h3>
-        <p>
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit. Omnis
-          consequuntur ipsum est perferendis nostrum quasi minima laboriosam
-          quo, odio nihil ullam suscipit deleniti fuga odit praesentium ratione
-          commodi qui provident!
-        </p>
-        <h4 class="motclespageanonce">
-          <span>mot cles</span>
-          <span>mot cles</span>
-          <span>mot cles</span>
-          <span>mot cles</span>
-        </h4>
-
-        <div class="FooterAnonce">
-          <h4>
-            Date : <br>
-            état : <br>
-            Lieu : <br>
-          </h4>
-
-          <div class="BoutonAnnonce">
-            <a href="">Ajouter aux favoris 🧡</a>
-            <a href="">contacter le propriétaire</a>
-          </div>
+    <div class="annonces-container">
+        <div class="annonce">
+            <div class="annonceimage-container">
+              <img
+                src="https://via.placeholder.com/150"
+                alt="Image de l'objet"
+              />
+              <div class="annoncefavori">
+                <img
+                  src="/CSS/RESSOURCES/SVG_Acceuil/HeartLikeOff.svg"
+                  alt="Favori"
+                />
+              </div>
+            </div>
+            <div class="annoncedetails">
+              <h2>
+                <td th:text="${announcement.title}"></td>
+              </h2>
+              <p class="annoncedescription">
+                <td th:text="${announcement.description}"></td>
+              </p>
+              <p class="annoncemeta">
+                Proposé par :
+                <td th:text="${announcement.username}"></td>
+                <br />
+                Date :
+                <td th:text="${announcement.publicationDate}"></td>
+                <br />
+                État :
+                <td th:text="${announcement.state}"></td>
+                <br />
+                Lieu :
+                <td th:text="${announcement.geographicalArea}"></td>
+              </p>
+              <p class="annoncekeywords">
+                Mots-clés : <br />
+                <span th:text="${announcement.listOfkeyWords}"></span>
+              </p>
+              <form action="@{/announcements/{idAnnouncement}(idAnnouncement=${announcement.idAnnouncement})}" method="POST">
+                <input type="hidden" name="_method" value="DELETE" />
+                <button type="submit">Supprimer l'annonce</button>
+            </form>
+            </div>
+          </a>
         </div>
-
-        <br>
-
-        <a href="./index.html">retour au anonces</a>
-      </div>
+      </tr>
     </div>
   </body>
   <svg

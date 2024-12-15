@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
   <link rel="stylesheet" href="/CSS/style.css" />
+
   <head>
     <title>The Donor Zone</title>
   </head>
@@ -26,12 +27,12 @@
       <nav>
         <ul class="displayblock">
           <li>
-            <a  th:href="@{/}">
+            <a th:href="@{/}">
               <img src="/CSS/RESSOURCES/Menu/home.svg" alt="" /></a
             >HOME
           </li>
           <li>
-            <a th:href="@{/announcements}">   
+            <a th:href="@{/announcements}">
               <img src="/CSS/RESSOURCES/Menu/Search.svg" alt="" /></a
             >RECHERCHER
           </li>
@@ -52,7 +53,9 @@
           </li>
           <li>
             <a th:href="@{/announcements/favorites}"
-              ><img src="/CSS/RESSOURCES/SVG_Acceuil/HeartLikeOff.svg" alt="" /></a
+              ><img
+                src="/CSS/RESSOURCES/SVG_Acceuil/HeartLikeOff.svg"
+                alt="" /></a
             >FAVORIS
           </li>
           <li>
@@ -63,40 +66,39 @@
         </ul>
       </nav>
     </header>
-<br>
-
-<!-- Section Profil -->
-<section>
     <div class="pageprofil">
-        <h2>Informations du Profil</h2>
-        <ul>
-            <li><strong>Id :</strong> <span th:text="${user.id}">id_utilisateur</span></li>
-            <li><strong>Nom d'utilisateur :</strong> <span th:text="${user.username}">nom_utilisateur</span></li>
-            <li><strong>Email :</strong> <span th:text="${user.email}">email@exemple.com</span></li>
-            <li><strong>Date de création :</strong> <span th:text="${user.createdAt}">01-01-2024</span></li>
-        </ul>
+      <section>
+        <h1>créer une anonce</h1>
+        <form th:action="@{/profile/update}" method="post">
+          <label for="email">Email :</label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            th:value="${user.email}"
+            required
+            placeholder="Votre adresse email"
+          />
+
+          <label for="password">Nouveau Mot de Passe :</label>
+          <input
+            type="password"
+            id="password"
+            name="password"
+            placeholder="Nouveau mot de passe"
+          />
+          <br />
+          <button type="submit">Mettre à jour</button>
+        </form>
+      </section>
     </div>
-</section>
-
-<!-- Formulaire pour Mettre à Jour les Infos -->
-<section class="pageprofil">
-    <h3>Mettre à jour les informations</h3>
-    <form th:action="@{/users/update}" method="post">
-        <label for="email">Email :</label>
-        <input type="email" id="email" name="email" th:value="${user.email}" required />
-
-        <label for="oldPassword">Ancien Mot de Passe :</label>
-        <input type="password" id="oldPassword" name="oldPassword" placeholder="Ancien mot de passe" />
-
-        <label for="newPassword">Nouveau Mot de Passe :</label>
-        <input type="password" id="newPassword" name="newPassword" placeholder="Nouveau mot de passe" />
-
-        <button type="submit">Mettre à jour</button>
-    </form>
-</section>
-
-<svg xmlns="//www.w3.org/2000/svg" version="1.1" class="svg-filters" style="display:none;">
-
+  </body>
+  <svg
+    xmlns="//www.w3.org/2000/svg"
+    version="1.1"
+    class="svg-filters"
+    style="display: none"
+  >
     <defs>
       <filter id="marker-shape">
         <feTurbulence

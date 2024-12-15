@@ -25,12 +25,12 @@
       <nav>
         <ul class="displayblock">
           <li>
-            <a th:href="@{/}">
+            <a  th:href="@{/}">
               <img src="/CSS/RESSOURCES/Menu/home.svg" alt="" /></a
             >HOME
           </li>
           <li>
-            <a href="./recherche.html">
+            <a th:href="@{/announcements}">   
               <img src="/CSS/RESSOURCES/Menu/Search.svg" alt="" /></a
             >RECHERCHER
           </li>
@@ -48,6 +48,11 @@
             <a th:href="@{/profile}"
               ><img src="/CSS/RESSOURCES/Menu/Profile.svg" alt="" /></a
             >PROFIL
+          </li>
+          <li>
+            <a th:href="@{/announcements/favorites}"
+              ><img src="/CSS/RESSOURCES/SVG_Acceuil/HeartLikeOff.svg" alt="" /></a
+            >FAVORIS
           </li>
           <li>
             <a th:href="@{/logout}"

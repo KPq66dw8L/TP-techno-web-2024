@@ -1,145 +1,165 @@
 package com.thedonorzone.thedonorzone.controller
 
 import com.thedonorzone.thedonorzone.dto.AnnouncementDto
+import com.thedonorzone.thedonorzone.dto.FavoritesDto
 import com.thedonorzone.thedonorzone.model.User
 import org.springframework.ui.Model
-import com.thedonorzone.thedonorzone.service.AnnoucementService
+import com.thedonorzone.thedonorzone.service.AnnouncementService
 import org.springframework.http.ResponseEntity
-import com.thedonorzone.thedonorzone.model.Annoucement
-import com.thedonorzone.thedonorzone.model.AnnoucementUpdateRequest
+import com.thedonorzone.thedonorzone.model.Announcement
+import com.thedonorzone.thedonorzone.model.AnnouncementUpdateRequest
 import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Controller
 import org.springframework.web.bind.annotation.*
 import java.util.*
+import javax.servlet.http.HttpSession
 
 @Controller
 @RequestMapping("/announcements")
-class AnnouncementController(private val annoucementService: AnnoucementService) {
+class AnnouncementController(private val announcementService: AnnouncementService) {
     @PostMapping("/create")
-    fun create (@ModelAttribute announcementDto: AnnouncementDto, model: Model): String {
+    fun create (@ModelAttribute announcementDto: AnnouncementDto, model: Model, @SessionAttribute(name = "currentUser") user: User?): String {
         return try {
-            val annoucement = annoucementService.createAnnoucement(announcementDto)
+            if (user == null ||user.username == "") {
+                return "redirect:/login" // Rediriger si aucun utilisateur n'est connecté
+            }
+            val announcement =  announcementService.createAnnouncement(announcementDto, user.username!!)
             model.addAttribute("message", "Annonce créée avec succès !")
             return "confirmation" // Retourne une page de confirmation
         } catch (e: RuntimeException) {
-           "error"
+            println("Erreur lors de la création de l'annonce : ${e.message}")
+            return "error"
         }
     }
 
     @GetMapping("/Formulaire.html")
     fun formulaire(): String {
-        return "Formulaire" // Spring recherche "Formulaire.html" dans src/main/resources/templates
+        return "Formulaire" 
+    }
+
+    @GetMapping("/index.html")
+    fun index(): String {
+        return "index" // Spring recherche "Formulaire.html" dans src/main/resources/templates
     }
     
-    @GetMapping("/user/{idUser}")
-    fun getAnnouncementsByIdUser (@PathVariable idUser: Long): ResponseEntity<List<Annoucement>> {
-        return try {
-            val annoucements = annoucementService.getAnnouncementsByIdUser(idUser)
-            ResponseEntity(annoucements, HttpStatus.CREATED)
-        } catch (e: RuntimeException) {
-            ResponseEntity(HttpStatus.CONFLICT)
-        }
-    }
 
     @GetMapping("") 
-    fun getAnnouncements(model: Model, @RequestParam(required = false)geographicalArea : String?, @RequestParam(required = false)state : String?, @RequestParam(required = false)donation : String?, @RequestParam keyWord: String? ): String {
+    fun getAnnouncements(model: Model, @RequestParam(required = false)geographicalArea : String?, @RequestParam(required = false)state : String?, @RequestParam(required = false)donation : String?, @RequestParam(required = false) keywords: String? ): String {
             return try {
-                val announcements = annoucementService.getAnnouncements(geographicalArea,state,donation,keyWord)
-                model.addAttribute("announcements", announcements)
-                "index" // Retourne le nom du fichier HTML sans extension
+                if (geographicalArea=="")
+                {
+                    val announcements =  announcementService.getAnnouncements(null,state,donation,keywords)
+                    model.addAttribute("announcements", announcements)
+                    "Research" 
+                }
+                else 
+                {
+                    val announcements =  announcementService.getAnnouncements(geographicalArea,state,donation,keywords)
+                    model.addAttribute("announcements", announcements)
+                    "Research" 
+                }
             } catch (e: RuntimeException) {
-                "error" // Une vue HTML pour afficher les erreurs
+                return "error" 
             }
     }
-    @GetMapping("/sell")
-    fun sell(model: Model): String {
-        return "Sell" // Correspond à templates/sell.html
-    }
-    
-    /*@GetMapping("")
-    fun getAllAnnoucement(model: Model): String {
+ 
+   @GetMapping("/sell")
+    fun sell(model: Model, @SessionAttribute(name = "currentUser") user: User?): String { 
             return try {
-                val announcements = annoucementService.getAllAnnoucement()
+                if (user == null ||user.username == "") {
+                    return "redirect:/login" // Rediriger si aucun utilisateur n'est connecté
+                }
+                val announcements =  announcementService.getAnnouncementsByusername(user.username!!)
                 model.addAttribute("announcements", announcements)
-                "index" // Retourne le nom du fichier HTML sans extension
+                return "Sell"
             } catch (e: RuntimeException) {
-                "error" // Une vue HTML pour afficher les erreurs
+                return "error" 
             }
         }
-    @GetMapping("/filter") 
-    fun getAnnouncementsByFilter(@RequestParam(required = false)geographicalArea : String?, @RequestParam(required = false)state : String?, @RequestParam(required = false)donation : String? ): ResponseEntity<List<Annoucement>> {
+     
+   @PostMapping("/favorites")
+        fun create (@RequestBody favoritesDto: FavoritesDto, @SessionAttribute(name = "currentUser") user: User?, model: Model): String {
             return try {
-                val annoucements = annoucementService.getAnnouncementsByFilter(geographicalArea,state,donation)
-                ResponseEntity(annoucements, HttpStatus.OK)
+                if (user == null ||user.username == "") {
+                    return "redirect:/login" // Rediriger si aucun utilisateur n'est connecté
+                }
+                val favorites = announcementService.createFavorites(favoritesDto)
+                model.addAttribute("message", "Favoris créé avec succès !")
+                return "confirmation" // Retourne une page de confirmation
             } catch (e: RuntimeException) {
-                ResponseEntity(HttpStatus.CONFLICT)
+                return "error"
             }
-        }
-    
-    @GetMapping("/search")
-    fun searchAnnouncements(@RequestParam keyword: String): ResponseEntity<List<Annoucement>> {
-            return try {
-                val annoucements = annoucementService.getAnnouncementsBySearch(keyword)
-                ResponseEntity(annoucements, HttpStatus.OK)
-            } catch (e: RuntimeException) {
-                ResponseEntity(HttpStatus.CONFLICT)
-            }
-        }
-    */
-   /*  @PostMapping("/favorites")
-        fun create (@RequestBody favoritesDto: FavoritesDto): ResponseEntity<Favorites> {
-            return try {
-                val favorites = annoucementService.createFavorites(FavoritesDto)
-                ResponseEntity(favorites, HttpStatus.CREATED)
-            } catch (e: RuntimeException) {
-                ResponseEntity(HttpStatus.CONFLICT)
-            }
-     }*/
-   /*  @GetMapping("/favorites")
-    fun getAllFavorites(): ResponseEntity<List<Annoucement>> {
-        return try {
-            val favorites = annoucementService.getAllFavorites()
-            ResponseEntity(favorites, HttpStatus.OK)
-        } catch (e: RuntimeException) {
-            ResponseEntity(HttpStatus.OK)
-        }
-    } */
+     }
 
-    @GetMapping("/{idAnnoucement}")
-    fun getById(@PathVariable idAnnoucement: Long): ResponseEntity<Annoucement> {
+     @GetMapping("/favorites")
+     fun getAllFavoritesByUsername(model: Model, @SessionAttribute(name = "currentUser") user: User?): String {
+         return try {
+             if (user == null ||user.username == "") {
+                 return "redirect:/login" // Rediriger si aucun utilisateur n'est connecté
+             }
+             val announcementsList = mutableListOf<Announcement>()
+             val favorites = announcementService.getAllFavoritesByUsername(user.username!!)
+             favorites?.let {
+                if (it.isNotEmpty()) {
+                    // Parcourir la liste des favoris
+                    for (favorite in it) {
+                        val idAnnouncement = favorite.idAnnoucement
+                        val announcement = announcementService.findById(idAnnouncement)
+                        announcement?.let {
+                            announcementsList.add(it) // Ajouter l'annonce à la liste si elle existe
+                        }
+                    }
+                }
+            }
+             model.addAttribute("announcements", announcementsList)
+             return "Favorites"
+         } catch (e: RuntimeException) {
+             return "error" 
+         }
+    }
+
+    @GetMapping("/{idAnnouncement}")
+    fun getById(@PathVariable idAnnouncement: Long, model: Model): String {
         return try {
-            val annoucement = annoucementService.findById(idAnnoucement)
-           /*  if (annoucement == null)
-            {
-                ResponseEntity(annoucement,HttpStatus.NOT_FOUND)
-            }*/
-            ResponseEntity(annoucement, HttpStatus.OK)
+            val announcement =  announcementService.findById(idAnnouncement)
+            model.addAttribute("announcement", announcement)
+            return "Annonce"
         } catch (e: IllegalArgumentException) {
-                // Gérer une exception liée à un ID invalide
-            throw RuntimeException("ID invalide", e)
+            return "error"
         } catch (e: RuntimeException) {
-            ResponseEntity(HttpStatus.NOT_FOUND)
-        }
-    }
-    @DeleteMapping("/{idAnnoucement}")
-        fun deleteAnnoucementById(@PathVariable idAnnoucement: Long): ResponseEntity<Annoucement> {
-        return try {
-            annoucementService.deleteAnnoucementById(idAnnoucement)
-            ResponseEntity(null, HttpStatus.NO_CONTENT)
-        } catch (e: RuntimeException) {
-            ResponseEntity(HttpStatus.OK)
+            return "error"
         }
     }
 
-    @PutMapping("/{idAnnoucement}") 
-    fun updateAnnoucement(@PathVariable idAnnoucement: Long, @RequestBody updateRequest: AnnoucementUpdateRequest): ResponseEntity<Annoucement> {
+    @RequestMapping(value = ["/{idAnnouncement}"], method = [RequestMethod.POST])
+        fun deleteAnnouncementById(@SessionAttribute(name = "currentUser") user: User?, model: Model,@PathVariable idAnnouncement: Long, @RequestParam("_method", required = false) method: String?): String {
         return try {
-            val updatedAnnoucement = annoucementService.updateAnnoucement(idAnnoucement, updateRequest)
-            ResponseEntity(updatedAnnoucement, HttpStatus.OK)
+            if (user == null ||user.id == null) {
+                return "redirect:/login" // Rediriger si aucun utilisateur n'est connecté
+            }
+            val announcement =  announcementService.findById(idAnnouncement)
+            if (announcement != null && user.username==announcement.username)
+            {
+                announcementService.deleteAnnouncementById(idAnnouncement)
+                model.addAttribute("message", "Annonce supprimée avec succès !")
+                return "confirmation" // Retourne une page de confirmation
+            }
+            else {
+                return "error"
+            }
+        } catch (e: RuntimeException) {
+           return "error"
+        }
+    }
+
+    @PutMapping("/{idAnnouncement}") 
+    fun updateAnnouncement(@PathVariable idAnnouncement: Long, @RequestBody updateRequest: AnnouncementUpdateRequest): ResponseEntity<Announcement> {
+        return try {
+            val updatedAnnouncement =  announcementService.updateAnnouncement(idAnnouncement, updateRequest)
+            ResponseEntity(updatedAnnouncement, HttpStatus.OK)
+
         } catch (e: RuntimeException) {
             ResponseEntity(HttpStatus.CONFLICT)
         }
     }
 }
-
-// elever com
