@@ -4,11 +4,11 @@ import jakarta.persistence.*
 import java.time.LocalDateTime
 
 @Entity
-@Table(name = "annoucement")
-data class Annoucement(
+@Table(name = "announcements")
+data class Announcement(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val idAnnoucement: Long = 0,
-    val idUser : Long=0,
+    val idAnnouncement: Long = 0,
+    val username : String="",
     val title : String="",
     val description : String="",
     val publicationDate : LocalDateTime=LocalDateTime.now(),
@@ -19,8 +19,8 @@ data class Annoucement(
 ){
     // Constructeur par défaut requis par JPA
     constructor() : this(
-        idAnnoucement = 0,
-        idUser = 0,
+        idAnnouncement = 0,
+        username = "",
         title = "",
         description = "",
         publicationDate = LocalDateTime.now(),

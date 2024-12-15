@@ -1,6 +1,6 @@
 package com.thedonorzone.thedonorzone.dto
 
-data class FavoritesDto (
+data class FavoritesDto(
     val idAnnoucement: Long,
-    val idUser : Long
+    val username: String
 )

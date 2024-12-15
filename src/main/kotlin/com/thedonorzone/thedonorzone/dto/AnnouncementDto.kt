@@ -5,8 +5,6 @@ import com.thedonorzone.thedonorzone.model.EnumState
 import java.time.LocalDateTime
 
 data class AnnouncementDto (
-   // val idAnnoucement: Long,
-   // val idUser : Long,
     val title : String,
     val description : String,
     val publicationDate : LocalDateTime?,
