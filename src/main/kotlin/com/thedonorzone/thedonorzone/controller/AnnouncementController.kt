@@ -58,9 +58,6 @@ class AnnouncementController(private val announcementService: AnnouncementServic
                     model.addAttribute("announcements", announcements)
                     "Research" 
                 }
-                val announcements =  announcementService.getAnnouncements(geographicalArea,state,donation,keywords)
-                model.addAttribute("announcements", announcements)
-                "Research"
             } catch (e: RuntimeException) {
                 return "error" 
             }
