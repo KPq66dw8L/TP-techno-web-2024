@@ -2,16 +2,13 @@ package com.thedonorzone.thedonorzone.security
 
 import jakarta.servlet.http.HttpServletRequest
 import jakarta.servlet.http.HttpServletResponse
+import org.springframework.boot.web.server.Cookie
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.http.HttpMethod
-import org.springframework.security.access.AccessDeniedException
-import org.springframework.security.config.Customizer
 import org.springframework.security.config.annotation.web.builders.HttpSecurity
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity
 import org.springframework.security.config.annotation.web.configurers.*
-import org.springframework.security.config.annotation.web.configurers.AuthorizeHttpRequestsConfigurer.AuthorizationManagerRequestMatcherRegistry
-import org.springframework.security.config.annotation.web.configurers.HeadersConfigurer.FrameOptionsConfig
 import org.springframework.security.config.http.SessionCreationPolicy
 import org.springframework.security.core.AuthenticationException
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder
@@ -21,6 +18,7 @@ import org.springframework.security.web.SecurityFilterChain
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer
+
 
 
 @Configuration
@@ -38,6 +36,19 @@ fun authenticationEntryPoint(): AuthenticationEntryPoint {
         response.sendRedirect("/login")
     }
 }
+
+@Configuration
+class CookieConfig {
+    @Bean
+    fun sessionCookieCustomizer(): jakarta.servlet.http.Cookie {
+        val cookie = jakarta.servlet.http.Cookie("JSESSIONID", "") // Create cookie with name and empty value
+        cookie.isHttpOnly = true  // Ensure cookie is HTTP-only
+        cookie.secure = false     // Set `true` for HTTPS
+        cookie.maxAge = -1        // Session ends when browser closes
+        return cookie
+    }
+}
+
 
 @Configuration
 @EnableWebSecurity
@@ -60,23 +71,14 @@ class SecurityConfig(
                     .requestMatchers("/h2-console/**").permitAll() // Allow H2 console access
                     .anyRequest().authenticated() // Require authentication for all other requests
             }
-//            .formLogin {
-//                it
-//                    .loginPage("/login")  // Specify the login page URL
-//                    .permitAll() // Allow anyone to access the login page
-//                    .defaultSuccessUrl("/", true)  // Redirect to home page after successful login
-//                    .failureUrl("/login?error=true") // Optional: Redirect to login page with an error on failure
-//            }
             .sessionManagement {
                 it.sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED) // Allow creation of sessions if needed
             }
             .exceptionHandling {
                 it
-                    // Rediriger vers /auth/login si l'utilisateur n'est pas authentifié
                     .authenticationEntryPoint { _, response, _ ->
                         response.sendRedirect("/login?error=Unauthenticated")
                     }
-                    // Rediriger vers /auth/login si l'utilisateur authentifié n'a pas accès (403)
                     .accessDeniedHandler { _, response, _ ->
                         response.sendRedirect("/login?error=Access+Denied")
                     }
@@ -85,7 +87,7 @@ class SecurityConfig(
         // Adding JwtAuthenticationFilter to the filter chain
         http.addFilterBefore(JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter::class.java)
         http.headers { it.frameOptions { frame -> frame.disable() } }
-        return http.build() // Return the configured SecurityFilterChain
+        return http.build()
     }
 
     @Bean

@@ -42,11 +42,13 @@ class UserController @Autowired constructor(
 
         return try {
             val user = userService.registerUser(username, email, password)
+            session.setAttribute("currentUser", user)
 
             val token = userService.authenticateUser(
                 username = username,
                 email = email,
-                password = password
+                password = password,
+                session
             )
 
             // Store the JWT in the session
@@ -77,7 +79,7 @@ class UserController @Autowired constructor(
 
         // Try to authenticate the user
         return try {
-            val token = userService.authenticateUser(username, email, password)
+            val token = userService.authenticateUser(username, email, password, session)
             if (token != null) {
                 session.setAttribute("jwtToken", token)
 
@@ -90,5 +92,26 @@ class UserController @Autowired constructor(
         }
     }
 
+    @GetMapping("/profile")
+    fun showUserProfile(model: Model, session: HttpSession): String {
+        model.addAttribute("user", session.getAttribute("currentUser"))
+        return "Profile"
+    }
 
+    @PostMapping("/users/update")
+    fun changePassword(
+        session: HttpSession,
+        @RequestParam("oldPassword") oldPassword: String,
+        @RequestParam("newPassword") newPassword: String
+    ): String {
+        val user = session.getAttribute("currentUser") as? User
+            ?: return "redirect:/login?error=Not+logged+in"
+
+        return try {
+            user.email?.let { userService.changePassword(it, oldPassword, newPassword) }
+            "redirect:/profile?success=Password+changed"
+        } catch (e: IllegalArgumentException) {
+            "redirect:/profile?error=${e.message}"
+        }
+    }
 }
