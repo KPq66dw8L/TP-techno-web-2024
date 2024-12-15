@@ -84,4 +84,8 @@ class UserService @Autowired constructor(
         userRepository.save(user)
         return true
     }
+
+    fun findByUsername(username: String): User? {
+        return userRepository.findByUsername(username)
+    }
 }
