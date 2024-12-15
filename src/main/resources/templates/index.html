@@ -59,7 +59,7 @@
       </nav>
     </header>
     <br />
-    <form action="/announcements/search" method="get">
+    <form action="/announcements" method="get">
       <ul class="barreDeRecherche">
         <li>
           <input type="text" name="keywords" placeholder="Search.." />
@@ -74,7 +74,10 @@
     <div class="annonces-container">
       <tr th:each="announcement : ${announcements}">
         <div class="annonce">
-          <a href="./Annonce.html">
+          <a
+            th:href="@{'/announcements/' + ${announcement.idAnnouncement}}"
+            target="_blank"
+          >
             <div class="annonceimage-container">
               <img
                 src="https://via.placeholder.com/150"
@@ -109,7 +112,7 @@
               </p>
               <p class="annoncekeywords">
                 Mots-clés : <br />
-                <span>meuble</span> <span>gratuit</span>
+                <span th:text="${announcement.listOfkeyWords}"></span>
               </p>
             </div>
           </a>

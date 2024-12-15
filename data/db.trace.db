@@ -612,3 +612,6 @@ select a1_0.id_annoucement,a1_0.description,a1_0.donation,a1_0.favorites,a1_0.ge
 2024-12-14 19:01:35.511776+01:00 jdbc[13]: exception
 org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "DROP [*]ANNOUCEMENT TABLE"; expected "TABLE, INDEX, USER, SEQUENCE, CONSTANT, TRIGGER, MATERIALIZED, VIEW, ROLE, ALIAS, SCHEMA, ALL OBJECTS, DOMAIN, TYPE, AGGREGATE, SYNONYM"; SQL statement:
 DROP ANNOUCEMENT TABLE [42001-224]
+2024-12-15 03:44:12.006808+01:00 jdbc[13]: exception
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Syntax error in SQL statement "DELETE [*]TABLE ANNOUCEMENT"; expected "identifier"; SQL statement:
+DELETE TABLE ANNOUCEMENT [42001-224]

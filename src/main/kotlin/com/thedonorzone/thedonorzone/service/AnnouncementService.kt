@@ -1,28 +1,28 @@
 package com.thedonorzone.thedonorzone.service
 
 import com.thedonorzone.thedonorzone.dto.AnnouncementDto
-import com.thedonorzone.thedonorzone.model.Annoucement
+import com.thedonorzone.thedonorzone.model.Announcement
 import com.thedonorzone.thedonorzone.model.EnumDonation
 import com.thedonorzone.thedonorzone.model.EnumState
 import com.thedonorzone.thedonorzone.model.User
 import com.thedonorzone.thedonorzone.repository.AnnouncementRepository
 import com.thedonorzone.thedonorzone.repository.UserRepository
 import org.springframework.stereotype.Service
-import com.thedonorzone.thedonorzone.model.AnnoucementUpdateRequest
+import com.thedonorzone.thedonorzone.model.AnnouncementUpdateRequest
 import org.springframework.transaction.annotation.Transactional
 import java.time.LocalDateTime
 import java.util.*
 
 @Service
-class AnnoucementService(private val announcementRepository: AnnouncementRepository) {
+class AnnouncementService(private val announcementRepository: AnnouncementRepository) {
 
-    fun createAnnoucement(AnnouncementDto: AnnouncementDto): Annoucement {
+    fun createAnnouncement(AnnouncementDto: AnnouncementDto): Announcement {
         // TO DO : check if the user is connected
         val publicationDate = AnnouncementDto.publicationDate ?: LocalDateTime.now()
-        val annoucement= Annoucement(title = AnnouncementDto.title, description = AnnouncementDto.description
+        val announcement= Announcement(title = AnnouncementDto.title, description = AnnouncementDto.description
             ,state = AnnouncementDto.state,geographicalArea = AnnouncementDto.geographicalArea,
             donation = AnnouncementDto.donation, listOfkeyWords = AnnouncementDto.listOfkeyWords, publicationDate = publicationDate)
-        return announcementRepository.save(annoucement)
+        return announcementRepository.save(announcement)
     }
 
    /* fun getAllAnnoucement(): List<Annoucement> {
@@ -36,36 +36,34 @@ class AnnoucementService(private val announcementRepository: AnnouncementReposit
         return announcementRepository.getAnnouncementsBySearch(keyWord)
     }*/
 
-    fun getAnnouncements(geographicalArea: String?, state: String?, donation: String?, keyWord: String?): List<Annoucement> {
-        return announcementRepository.getAnnouncements(geographicalArea, state, donation, keyWord)
+    fun getAnnouncements(geographicalArea: String?, state: String?, donation: String?, keywords: String?): List<Announcement> {
+        return announcementRepository.getAnnouncements(geographicalArea, state, donation, keywords)
     }
-    fun findById(idAnnoucement: Long): Annoucement? {
-        // TO DO : check if the user is connected
-        println("testici\n\n")
-        return announcementRepository.findById(idAnnoucement).orElse(null) 
+    fun findById(idAnnouncement: Long): Announcement? {
+        return announcementRepository.findById(idAnnouncement).orElse(null) 
     }
     
-    fun getAnnouncementsByIdUser(idUser: Long): List<Annoucement> {
+    fun getAnnouncementsByIdUser(idUser: Long): List<Announcement> {
         return announcementRepository.getAnnouncementsByIdUser(idUser)
     }
 
-    fun deleteAnnoucementById(idAnnoucement: Long) {
-        announcementRepository.deleteById(idAnnoucement)
+    fun deleteAnnouncementById(idAnnouncement: Long) {
+        announcementRepository.deleteById(idAnnouncement)
     }
 
-    fun updateAnnoucement(idAnnoucement: Long, updateRequest: AnnoucementUpdateRequest): Annoucement? {
+    fun updateAnnouncement(idAnnouncement: Long, updateRequest: AnnouncementUpdateRequest): Announcement? {
         // Vérifier si l'entité existe
-        val existingAnnoucement = announcementRepository.findById(idAnnoucement).orElse(null) ?: return null
+        val existingAnnouncement = announcementRepository.findById(idAnnouncement).orElse(null) ?: return null
 
         // Mettre à jour uniquement les champs nécessaires
-        val updatedAnnoucement = existingAnnoucement.copy(
-            title = updateRequest.title ?: existingAnnoucement.title,
-            description = updateRequest.description ?: existingAnnoucement.description,
-            state = updateRequest.state ?: existingAnnoucement.state,
-            geographicalArea = updateRequest.geographicalArea ?: existingAnnoucement.geographicalArea
+        val updatedAnnouncement = existingAnnouncement.copy(
+            title = updateRequest.title ?: existingAnnouncement.title,
+            description = updateRequest.description ?: existingAnnouncement.description,
+            state = updateRequest.state ?: existingAnnouncement.state,
+            geographicalArea = updateRequest.geographicalArea ?: existingAnnouncement.geographicalArea
         )
 
         // Sauvegarder et retourner l'entité mise à jour
-        return announcementRepository.save(updatedAnnoucement)
+        return announcementRepository.save(updatedAnnouncement)
     }
 }

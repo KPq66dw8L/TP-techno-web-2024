@@ -4,10 +4,10 @@ import jakarta.persistence.*
 import java.time.LocalDateTime
 
 @Entity
-@Table(name = "annoucement")
-data class Annoucement(
+@Table(name = "announcement")
+data class Announcement(
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val idAnnoucement: Long = 0,
+    val idAnnouncement: Long = 0,
     val idUser : Long=0,
     val title : String="",
     val description : String="",
@@ -19,7 +19,7 @@ data class Annoucement(
 ){
     // Constructeur par défaut requis par JPA
     constructor() : this(
-        idAnnoucement = 0,
+        idAnnouncement = 0,
         idUser = 0,
         title = "",
         description = "",
