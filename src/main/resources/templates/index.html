@@ -25,12 +25,12 @@
       <nav>
         <ul class="displayblock">
           <li>
-            <a href="./index.html">
-              <img src="/CSS/RESSOURCES/Menu/Home.svg" alt="" /></a
+            <a th:href="@{/}">
+              <img src="/CSS/RESSOURCES/Menu/home.svg" alt="" /></a
             >HOME
           </li>
           <li>
-            <a href="./recherche.html"">
+            <a href="./recherche.html">
               <img src="/CSS/RESSOURCES/Menu/Search.svg" alt="" /></a
             >RECHERCHER
           </li>
@@ -40,17 +40,17 @@
             >VENDRE
           </li>
           <li>
-            <a href="Message.html"
+            <a th:href="@{/chat}"
               ><img src="/CSS/RESSOURCES/Menu/Message.svg" alt="" /></a
             >MESSAGE
           </li>
           <li>
-            <a href="Profile.html"
+            <a th:href="@{/profile}"
               ><img src="/CSS/RESSOURCES/Menu/Profile.svg" alt="" /></a
             >PROFIL
           </li>
           <li>
-            <a href="./Profile.html"
+            <a th:href="@{/logout}"
               ><img src="/CSS/RESSOURCES/Menu/logout.svg" alt="" /></a
             >DECONNEXION
           </li>
